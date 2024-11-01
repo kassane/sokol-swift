@@ -61,8 +61,8 @@ file(GLOB SWIFT_SOKOL_SOURCES
     "${CMAKE_SOURCE_DIR}/Sources/sokol/*.swift"
 )
 
-set(SWIFT_SOURCES
-    "${CMAKE_SOURCE_DIR}/Examples/clear.swift"
+file(GLOB SWIFT_SOURCES
+    "${CMAKE_SOURCE_DIR}/Examples/*.swift"
 )
 
 foreach(EXAMPLE_SOURCE ${SWIFT_SOURCES})
