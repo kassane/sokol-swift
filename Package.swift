@@ -4,10 +4,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "sokol-swift",
+    name: "sokol",
     products: [
         .library(
-            name: "sokol-swift",
+            name: "sokol",
+            type: .static,
             targets: ["sokol"]),
         .executable(
             name: "clear",
@@ -39,15 +40,29 @@ let package = Package(
                 .define("SOKOL_METAL", .when(platforms: [.macOS])),
                 .unsafeFlags(["-w"]),
             ],
-            swiftSettings: [
-                .unsafeFlags(["-import-objc-header", "c/sokol.h"])
-            ]
         ),
         .executableTarget(
             name: "clear",
             dependencies: ["sokol"],
             path: "Examples",
-            sources: ["clear.swift"]
+            sources: ["clear.swift"],
+            swiftSettings: [
+                .unsafeFlags(
+                    [
+                        "-import-bridging-header", "Sources/sokol/c/sokol.h",
+                        "-Xlinker",
+                        "/home/kassane/sokol-swift/.build/x86_64-unknown-linux-gnu/debug/libsokol.a",
+                    ], .when(platforms: [.linux]))
+            ],
+            linkerSettings: [
+                .linkedFramework("Metal", .when(platforms: [.macOS])),
+                .linkedFramework("MetalKit", .when(platforms: [.macOS])),
+                .linkedFramework("Cocoa", .when(platforms: [.macOS])),
+                .linkedLibrary("GL", .when(platforms: [.linux])),
+                .linkedLibrary("X11", .when(platforms: [.linux])),
+                .linkedLibrary("Xi", .when(platforms: [.linux])),
+                .linkedLibrary("Xcursor", .when(platforms: [.linux])),
+            ]
         ),
     ],
 )
