@@ -4,7 +4,9 @@ let max_touchpoints = 8
 let max_mousebuttons = 3
 let max_keycodes = 512
 let max_iconimages = 8
-enum EventType : UInt32 {
+
+@objc
+enum EventType : CUnsignedInt {
     case INVALID
     case KEY_DOWN
     case KEY_UP
@@ -32,7 +34,9 @@ enum EventType : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum Keycode : UInt32 {
+
+@objc
+enum Keycode : CUnsignedInt {
     case INVALID = 0
     case SPACE = 32
     case APOSTROPHE = 39
@@ -155,7 +159,9 @@ enum Keycode : UInt32 {
     case RIGHT_SUPER = 347
     case MENU = 348
 }
-enum AndroidTooltype : UInt32 {
+
+@objc
+enum AndroidTooltype : CUnsignedInt {
     case UNKNOWN = 0
     case FINGER = 1
     case STYLUS = 2
@@ -168,7 +174,9 @@ struct Touchpoint {
     var android_tooltype: AndroidTooltype = .UNKNOWN
     var changed: Bool = false
 }
-enum Mousebutton : UInt32 {
+
+@objc
+enum Mousebutton : CUnsignedInt {
     case LEFT = 0
     case RIGHT = 1
     case MIDDLE = 2
@@ -204,7 +212,7 @@ struct Event {
 }
 struct Range {
     var ptr: UnsafeRawPointer? = nil
-    var size: UInt = 0
+    var size: Int = 0
 }
 struct ImageDesc {
     var width: CInt = 0
@@ -216,11 +224,13 @@ struct IconDesc {
     var images: [ImageDesc] = Array(repeating: ImageDesc(), count: 8)
 }
 struct Allocator {
-    var alloc_fn: (@convention(c) (UInt, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
+    var alloc_fn: (@convention(c) (Int, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
     var free_fn: (@convention(c) (UnsafeMutableRawPointer?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
-enum LogItem : UInt32 {
+
+@objc
+enum LogItem : CUnsignedInt {
     case OK
     case MALLOC_FAILED
     case MACOS_INVALID_NSOPENGL_PROFILE
@@ -370,7 +380,9 @@ struct Desc {
     var html5_emsc_set_main_loop_simulate_infinite_loop: Bool = false
     var ios_keyboard_resizes_canvas: Bool = false
 }
-enum Html5FetchError : UInt32 {
+
+@objc
+enum Html5FetchError : CUnsignedInt {
     case FETCH_ERROR_NO_ERROR
     case FETCH_ERROR_BUFFER_TOO_SMALL
     case FETCH_ERROR_OTHER
@@ -389,7 +401,9 @@ struct Html5FetchRequest {
     var buffer: Range = Range()
     var user_data: UnsafeMutableRawPointer? = nil
 }
-enum MouseCursor : UInt32 {
+
+@objc
+enum MouseCursor : CUnsignedInt {
     case DEFAULT = 0
     case ARROW
     case IBEAM
@@ -530,9 +544,9 @@ func userdata() -> UnsafeMutableRawPointer? {
     return sapp_userdata()
 }
 @_extern(c, "sapp_query_desc")
-func sapp_query_desc() -> Desc
+func sapp_query_desc() -> OpaquePointer?
 
-func queryDesc() -> Desc {
+func queryDesc() -> OpaquePointer? {
     return sapp_query_desc()
 }
 @_extern(c, "sapp_request_quit")
@@ -593,7 +607,7 @@ func setWindowTitle(_ str: UnsafePointer<CChar>?) {
 func sapp_set_icon(_: UnsafeRawPointer?)
 
 func setIcon(_ icon_desc: UnsafePointer<IconDesc>?) {
-    return sapp_set_icon(icon_desc)
+    return sapp_set_icon(UnsafePointer(icon_desc))
 }
 @_extern(c, "sapp_get_num_dropped_files")
 func sapp_get_num_dropped_files() -> CInt
@@ -611,7 +625,7 @@ func getDroppedFilePath(_ index: CInt) -> UnsafePointer<CChar>? {
 func sapp_run(_: UnsafeRawPointer?)
 
 func run(_ desc: UnsafePointer<Desc>?) {
-    return sapp_run(desc)
+    return sapp_run(UnsafePointer(desc))
 }
 @_extern(c, "sapp_egl_get_display")
 func sapp_egl_get_display() -> UnsafeRawPointer?
@@ -641,7 +655,7 @@ func html5GetDroppedFileSize(_ index: CInt) -> UInt32 {
 func sapp_html5_fetch_dropped_file(_: UnsafeRawPointer?)
 
 func html5FetchDroppedFile(_ request: UnsafePointer<Html5FetchRequest>?) {
-    return sapp_html5_fetch_dropped_file(request)
+    return sapp_html5_fetch_dropped_file(UnsafePointer(request))
 }
 @_extern(c, "sapp_metal_get_device")
 func sapp_metal_get_device() -> UnsafeRawPointer?

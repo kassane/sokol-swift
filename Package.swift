@@ -36,6 +36,7 @@ let package = Package(
             publicHeadersPath: "c",
             cSettings: [
                 .headerSearchPath("."),
+                .define("IMPL"),
                 .define("SOKOL_GLES3", .when(platforms: [.linux])),
                 .define("SOKOL_METAL", .when(platforms: [.macOS])),
                 .unsafeFlags(["-w"]),

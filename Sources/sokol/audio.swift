@@ -1,6 +1,8 @@
 // machine generated, do not edit
 
-enum LogItem : UInt32 {
+
+@objc
+enum LogItem : CUnsignedInt {
     case OK
     case MALLOC_FAILED
     case ALSA_SND_PCM_OPEN_FAILED
@@ -43,7 +45,7 @@ struct Logger {
     var user_data: UnsafeMutableRawPointer? = nil
 }
 struct Allocator {
-    var alloc_fn: (@convention(c) (UInt, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
+    var alloc_fn: (@convention(c) (Int, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
     var free_fn: (@convention(c) (UnsafeMutableRawPointer?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
@@ -63,7 +65,7 @@ struct Desc {
 func saudio_setup(_: UnsafeRawPointer?)
 
 func setup(_ desc: UnsafePointer<Desc>?) {
-    return saudio_setup(desc)
+    return saudio_setup(UnsafePointer(desc))
 }
 @_extern(c, "saudio_shutdown")
 func saudio_shutdown()
@@ -84,9 +86,9 @@ func userdata() -> UnsafeMutableRawPointer? {
     return saudio_userdata()
 }
 @_extern(c, "saudio_query_desc")
-func saudio_query_desc() -> Desc
+func saudio_query_desc() -> OpaquePointer?
 
-func queryDesc() -> Desc {
+func queryDesc() -> OpaquePointer? {
     return saudio_query_desc()
 }
 @_extern(c, "saudio_sample_rate")

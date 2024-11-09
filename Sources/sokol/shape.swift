@@ -2,7 +2,7 @@
 
 struct Range {
     var ptr: UnsafeRawPointer? = nil
-    var size: UInt = 0
+    var size: Int = 0
 }
 struct Mat4 {
     var m: [[Float]] = Array(repeating: Array(repeating: Float(0.0), count: 4), count: 4)
@@ -30,8 +30,8 @@ struct Sizes {
 }
 struct BufferItem {
     var buffer: Range = Range()
-    var data_size: UInt = 0
-    var shape_offset: UInt = 0
+    var data_size: Int = 0
+    var shape_offset: Int = 0
 }
 struct Buffer {
     var valid: Bool = false
@@ -87,111 +87,111 @@ struct Torus {
     var transform: Mat4 = Mat4()
 }
 @_extern(c, "sshape_build_plane")
-func sshape_build_plane(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> Buffer
+func sshape_build_plane(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> OpaquePointer?
 
-func buildPlane(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Plane>?) -> Buffer {
-    return sshape_build_plane(buf, params)
+func buildPlane(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Plane>?) -> OpaquePointer? {
+    return sshape_build_plane(UnsafePointer(buf), UnsafePointer(params))
 }
 @_extern(c, "sshape_build_box")
-func sshape_build_box(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> Buffer
+func sshape_build_box(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> OpaquePointer?
 
-func buildBox(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Box>?) -> Buffer {
-    return sshape_build_box(buf, params)
+func buildBox(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Box>?) -> OpaquePointer? {
+    return sshape_build_box(UnsafePointer(buf), UnsafePointer(params))
 }
 @_extern(c, "sshape_build_sphere")
-func sshape_build_sphere(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> Buffer
+func sshape_build_sphere(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> OpaquePointer?
 
-func buildSphere(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Sphere>?) -> Buffer {
-    return sshape_build_sphere(buf, params)
+func buildSphere(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Sphere>?) -> OpaquePointer? {
+    return sshape_build_sphere(UnsafePointer(buf), UnsafePointer(params))
 }
 @_extern(c, "sshape_build_cylinder")
-func sshape_build_cylinder(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> Buffer
+func sshape_build_cylinder(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> OpaquePointer?
 
-func buildCylinder(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Cylinder>?) -> Buffer {
-    return sshape_build_cylinder(buf, params)
+func buildCylinder(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Cylinder>?) -> OpaquePointer? {
+    return sshape_build_cylinder(UnsafePointer(buf), UnsafePointer(params))
 }
 @_extern(c, "sshape_build_torus")
-func sshape_build_torus(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> Buffer
+func sshape_build_torus(_: UnsafeRawPointer?, _: UnsafeRawPointer?) -> OpaquePointer?
 
-func buildTorus(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Torus>?) -> Buffer {
-    return sshape_build_torus(buf, params)
+func buildTorus(_ buf: UnsafePointer<Buffer>?, _ params: UnsafePointer<Torus>?) -> OpaquePointer? {
+    return sshape_build_torus(UnsafePointer(buf), UnsafePointer(params))
 }
 @_extern(c, "sshape_plane_sizes")
-func sshape_plane_sizes(_: UInt32) -> Sizes
+func sshape_plane_sizes(_: UInt32) -> OpaquePointer?
 
-func planeSizes(_ tiles: UInt32) -> Sizes {
+func planeSizes(_ tiles: UInt32) -> OpaquePointer? {
     return sshape_plane_sizes(tiles)
 }
 @_extern(c, "sshape_box_sizes")
-func sshape_box_sizes(_: UInt32) -> Sizes
+func sshape_box_sizes(_: UInt32) -> OpaquePointer?
 
-func boxSizes(_ tiles: UInt32) -> Sizes {
+func boxSizes(_ tiles: UInt32) -> OpaquePointer? {
     return sshape_box_sizes(tiles)
 }
 @_extern(c, "sshape_sphere_sizes")
-func sshape_sphere_sizes(_: UInt32, _: UInt32) -> Sizes
+func sshape_sphere_sizes(_: UInt32, _: UInt32) -> OpaquePointer?
 
-func sphereSizes(_ slices: UInt32, _ stacks: UInt32) -> Sizes {
+func sphereSizes(_ slices: UInt32, _ stacks: UInt32) -> OpaquePointer? {
     return sshape_sphere_sizes(slices, stacks)
 }
 @_extern(c, "sshape_cylinder_sizes")
-func sshape_cylinder_sizes(_: UInt32, _: UInt32) -> Sizes
+func sshape_cylinder_sizes(_: UInt32, _: UInt32) -> OpaquePointer?
 
-func cylinderSizes(_ slices: UInt32, _ stacks: UInt32) -> Sizes {
+func cylinderSizes(_ slices: UInt32, _ stacks: UInt32) -> OpaquePointer? {
     return sshape_cylinder_sizes(slices, stacks)
 }
 @_extern(c, "sshape_torus_sizes")
-func sshape_torus_sizes(_: UInt32, _: UInt32) -> Sizes
+func sshape_torus_sizes(_: UInt32, _: UInt32) -> OpaquePointer?
 
-func torusSizes(_ sides: UInt32, _ rings: UInt32) -> Sizes {
+func torusSizes(_ sides: UInt32, _ rings: UInt32) -> OpaquePointer? {
     return sshape_torus_sizes(sides, rings)
 }
 @_extern(c, "sshape_element_range")
-func sshape_element_range(_: UnsafeRawPointer?) -> ElementRange
+func sshape_element_range(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func elementRange(_ buf: UnsafePointer<Buffer>?) -> ElementRange {
-    return sshape_element_range(buf)
+func elementRange(_ buf: UnsafePointer<Buffer>?) -> OpaquePointer? {
+    return sshape_element_range(UnsafePointer(buf))
 }
 @_extern(c, "sshape_vertex_buffer_desc")
-func sshape_vertex_buffer_desc(_: UnsafeRawPointer?) -> sg.BufferDesc
+func sshape_vertex_buffer_desc(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func vertexBufferDesc(_ buf: UnsafePointer<Buffer>?) -> sg.BufferDesc {
-    return sshape_vertex_buffer_desc(buf)
+func vertexBufferDesc(_ buf: UnsafePointer<Buffer>?) -> OpaquePointer? {
+    return sshape_vertex_buffer_desc(UnsafePointer(buf))
 }
 @_extern(c, "sshape_index_buffer_desc")
-func sshape_index_buffer_desc(_: UnsafeRawPointer?) -> sg.BufferDesc
+func sshape_index_buffer_desc(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func indexBufferDesc(_ buf: UnsafePointer<Buffer>?) -> sg.BufferDesc {
-    return sshape_index_buffer_desc(buf)
+func indexBufferDesc(_ buf: UnsafePointer<Buffer>?) -> OpaquePointer? {
+    return sshape_index_buffer_desc(UnsafePointer(buf))
 }
 @_extern(c, "sshape_vertex_buffer_layout_state")
-func sshape_vertex_buffer_layout_state() -> sg.VertexBufferLayoutState
+func sshape_vertex_buffer_layout_state() -> OpaquePointer?
 
-func vertexBufferLayoutState() -> sg.VertexBufferLayoutState {
+func vertexBufferLayoutState() -> OpaquePointer? {
     return sshape_vertex_buffer_layout_state()
 }
 @_extern(c, "sshape_position_vertex_attr_state")
-func sshape_position_vertex_attr_state() -> sg.VertexAttrState
+func sshape_position_vertex_attr_state() -> OpaquePointer?
 
-func positionVertexAttrState() -> sg.VertexAttrState {
+func positionVertexAttrState() -> OpaquePointer? {
     return sshape_position_vertex_attr_state()
 }
 @_extern(c, "sshape_normal_vertex_attr_state")
-func sshape_normal_vertex_attr_state() -> sg.VertexAttrState
+func sshape_normal_vertex_attr_state() -> OpaquePointer?
 
-func normalVertexAttrState() -> sg.VertexAttrState {
+func normalVertexAttrState() -> OpaquePointer? {
     return sshape_normal_vertex_attr_state()
 }
 @_extern(c, "sshape_texcoord_vertex_attr_state")
-func sshape_texcoord_vertex_attr_state() -> sg.VertexAttrState
+func sshape_texcoord_vertex_attr_state() -> OpaquePointer?
 
-func texcoordVertexAttrState() -> sg.VertexAttrState {
+func texcoordVertexAttrState() -> OpaquePointer? {
     return sshape_texcoord_vertex_attr_state()
 }
 @_extern(c, "sshape_color_vertex_attr_state")
-func sshape_color_vertex_attr_state() -> sg.VertexAttrState
+func sshape_color_vertex_attr_state() -> OpaquePointer?
 
-func colorVertexAttrState() -> sg.VertexAttrState {
+func colorVertexAttrState() -> OpaquePointer? {
     return sshape_color_vertex_attr_state()
 }
 @_extern(c, "sshape_color_4f")
@@ -219,14 +219,14 @@ func color3b(_ r: UInt8, _ g: UInt8, _ b: UInt8) -> UInt32 {
     return sshape_color_3b(r, g, b)
 }
 @_extern(c, "sshape_mat4")
-func sshape_mat4(_: UnsafePointer<Float>) -> Mat4
+func sshape_mat4(_: UnsafePointer<Float>) -> OpaquePointer?
 
-func mat4(_ m: UnsafePointer<Float>?) -> Mat4 {
+func mat4(_ m: UnsafePointer<Float>?) -> OpaquePointer? {
     return sshape_mat4(m)
 }
 @_extern(c, "sshape_mat4_transpose")
-func sshape_mat4_transpose(_: UnsafePointer<Float>) -> Mat4
+func sshape_mat4_transpose(_: UnsafePointer<Float>) -> OpaquePointer?
 
-func mat4Transpose(_ m: UnsafePointer<Float>?) -> Mat4 {
+func mat4Transpose(_ m: UnsafePointer<Float>?) -> OpaquePointer? {
     return sshape_mat4_transpose(m)
 }

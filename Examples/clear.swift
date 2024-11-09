@@ -31,9 +31,9 @@ func cleanup() {
 }
 @_cdecl("sokol_main")
 func sokol_main(_ argc: Int32, _ argv: UnsafeMutablePointer<UnsafeMutablePointer<CChar>?>)
-    -> Desc
+    -> app.Desc
 {
-    var app = Desc(
+    var app = app.Desc(
         init_cb: initialize,
         frame_cb: frame,
         cleanup_cb: cleanup,

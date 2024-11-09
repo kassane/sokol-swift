@@ -1,6 +1,8 @@
 // machine generated, do not edit
 
-enum LogItem : UInt32 {
+
+@objc
+enum LogItem : CUnsignedInt {
     case OK
     case MALLOC_FAILED
     case ADD_COMMIT_LISTENER_FAILED
@@ -17,7 +19,7 @@ struct Context {
 }
 struct Range {
     var ptr: UnsafeRawPointer? = nil
-    var size: UInt = 0
+    var size: Int = 0
 }
 struct FontDesc {
     var data: Range = Range()
@@ -35,7 +37,7 @@ struct ContextDesc {
     var sample_count: CInt = 0
 }
 struct Allocator {
-    var alloc_fn: (@convention(c) (UInt, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
+    var alloc_fn: (@convention(c) (Int, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
     var free_fn: (@convention(c) (UnsafeMutableRawPointer?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
@@ -51,7 +53,7 @@ struct Desc {
 func sdtx_setup(_: UnsafeRawPointer?)
 
 func setup(_ desc: UnsafePointer<Desc>?) {
-    return sdtx_setup(desc)
+    return sdtx_setup(UnsafePointer(desc))
 }
 @_extern(c, "sdtx_shutdown")
 func sdtx_shutdown()
@@ -60,69 +62,69 @@ func shutdown() {
     return sdtx_shutdown()
 }
 @_extern(c, "sdtx_font_kc853")
-func sdtx_font_kc853() -> FontDesc
+func sdtx_font_kc853() -> OpaquePointer?
 
-func fontKc853() -> FontDesc {
+func fontKc853() -> OpaquePointer? {
     return sdtx_font_kc853()
 }
 @_extern(c, "sdtx_font_kc854")
-func sdtx_font_kc854() -> FontDesc
+func sdtx_font_kc854() -> OpaquePointer?
 
-func fontKc854() -> FontDesc {
+func fontKc854() -> OpaquePointer? {
     return sdtx_font_kc854()
 }
 @_extern(c, "sdtx_font_z1013")
-func sdtx_font_z1013() -> FontDesc
+func sdtx_font_z1013() -> OpaquePointer?
 
-func fontZ1013() -> FontDesc {
+func fontZ1013() -> OpaquePointer? {
     return sdtx_font_z1013()
 }
 @_extern(c, "sdtx_font_cpc")
-func sdtx_font_cpc() -> FontDesc
+func sdtx_font_cpc() -> OpaquePointer?
 
-func fontCpc() -> FontDesc {
+func fontCpc() -> OpaquePointer? {
     return sdtx_font_cpc()
 }
 @_extern(c, "sdtx_font_c64")
-func sdtx_font_c64() -> FontDesc
+func sdtx_font_c64() -> OpaquePointer?
 
-func fontC64() -> FontDesc {
+func fontC64() -> OpaquePointer? {
     return sdtx_font_c64()
 }
 @_extern(c, "sdtx_font_oric")
-func sdtx_font_oric() -> FontDesc
+func sdtx_font_oric() -> OpaquePointer?
 
-func fontOric() -> FontDesc {
+func fontOric() -> OpaquePointer? {
     return sdtx_font_oric()
 }
 @_extern(c, "sdtx_make_context")
-func sdtx_make_context(_: UnsafeRawPointer?) -> Context
+func sdtx_make_context(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makeContext(_ desc: UnsafePointer<ContextDesc>?) -> Context {
-    return sdtx_make_context(desc)
+func makeContext(_ desc: UnsafePointer<ContextDesc>?) -> OpaquePointer? {
+    return sdtx_make_context(UnsafePointer(desc))
 }
 @_extern(c, "sdtx_destroy_context")
-func sdtx_destroy_context(_: Context)
+func sdtx_destroy_context(_: OpaquePointer?)
 
-func destroyContext(_ ctx: Context) {
+func destroyContext(_ ctx: OpaquePointer?) {
     return sdtx_destroy_context(ctx)
 }
 @_extern(c, "sdtx_set_context")
-func sdtx_set_context(_: Context)
+func sdtx_set_context(_: OpaquePointer?)
 
-func setContext(_ ctx: Context) {
+func setContext(_ ctx: OpaquePointer?) {
     return sdtx_set_context(ctx)
 }
 @_extern(c, "sdtx_get_context")
-func sdtx_get_context() -> Context
+func sdtx_get_context() -> OpaquePointer?
 
-func getContext() -> Context {
+func getContext() -> OpaquePointer? {
     return sdtx_get_context()
 }
 @_extern(c, "sdtx_default_context")
-func sdtx_default_context() -> Context
+func sdtx_default_context() -> OpaquePointer?
 
-func defaultContext() -> Context {
+func defaultContext() -> OpaquePointer? {
     return sdtx_default_context()
 }
 @_extern(c, "sdtx_draw")
@@ -132,9 +134,9 @@ func draw() {
     return sdtx_draw()
 }
 @_extern(c, "sdtx_context_draw")
-func sdtx_context_draw(_: Context)
+func sdtx_context_draw(_: OpaquePointer?)
 
-func contextDraw(_ ctx: Context) {
+func contextDraw(_ ctx: OpaquePointer?) {
     return sdtx_context_draw(ctx)
 }
 @_extern(c, "sdtx_draw_layer")
@@ -144,9 +146,9 @@ func drawLayer(_ layer_id: CInt) {
     return sdtx_draw_layer(layer_id)
 }
 @_extern(c, "sdtx_context_draw_layer")
-func sdtx_context_draw_layer(_: Context, _: CInt)
+func sdtx_context_draw_layer(_: OpaquePointer?, _: CInt)
 
-func contextDrawLayer(_ ctx: Context, _ layer_id: CInt) {
+func contextDrawLayer(_ ctx: OpaquePointer?, _ layer_id: CInt) {
     return sdtx_context_draw_layer(ctx, layer_id)
 }
 @_extern(c, "sdtx_layer")

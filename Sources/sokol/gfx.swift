@@ -20,29 +20,30 @@ struct Attachments {
 }
 struct Range {
     var ptr: UnsafeRawPointer? = nil
-    var size: UInt = 0
+    var size: Int = 0
 }
 let invalid_id = 0
-let num_shader_stages = 2
 let num_inflight_frames = 2
 let max_color_attachments = 4
-let max_vertex_buffers = 8
-let max_shaderstage_images = 12
-let max_shaderstage_samplers = 8
-let max_shaderstage_imagesamplerpairs = 12
-let max_shaderstage_storagebuffers = 8
-let max_shaderstage_ubs = 4
-let max_ub_members = 16
+let max_uniformblock_members = 16
 let max_vertex_attributes = 16
 let max_mipmaps = 16
 let max_texturearray_layers = 128
+let max_uniformblock_bindslots = 8
+let max_vertexbuffer_bindslots = 8
+let max_image_bindslots = 16
+let max_sampler_bindslots = 16
+let max_storagebuffer_bindslots = 8
+let max_image_sampler_pairs = 16
 struct Color {
     var r: Float = 0.0
     var g: Float = 0.0
     var b: Float = 0.0
     var a: Float = 0.0
 }
-enum Backend : UInt32 {
+
+@objc
+enum Backend : CUnsignedInt {
     case GLCORE
     case GLES3
     case D3D11
@@ -52,7 +53,9 @@ enum Backend : UInt32 {
     case WGPU
     case DUMMY
 }
-enum PixelFormat : UInt32 {
+
+@objc
+enum PixelFormat : CUnsignedInt {
     case DEFAULT
     case NONE
     case R8
@@ -155,7 +158,9 @@ struct Limits {
     var gl_max_vertex_uniform_components: CInt = 0
     var gl_max_combined_texture_image_units: CInt = 0
 }
-enum ResourceState : UInt32 {
+
+@objc
+enum ResourceState : CUnsignedInt {
     case INITIAL
     case ALLOC
     case VALID
@@ -163,7 +168,9 @@ enum ResourceState : UInt32 {
     case INVALID
     case FORCE_U32 = 2147483647
 }
-enum Usage : UInt32 {
+
+@objc
+enum Usage : CUnsignedInt {
     case DEFAULT
     case IMMUTABLE
     case DYNAMIC
@@ -171,7 +178,9 @@ enum Usage : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum BufferType : UInt32 {
+
+@objc
+enum BufferType : CUnsignedInt {
     case DEFAULT
     case VERTEXBUFFER
     case INDEXBUFFER
@@ -179,7 +188,9 @@ enum BufferType : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum IndexType : UInt32 {
+
+@objc
+enum IndexType : CUnsignedInt {
     case DEFAULT
     case NONE
     case UINT16
@@ -187,7 +198,9 @@ enum IndexType : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum ImageType : UInt32 {
+
+@objc
+enum ImageType : CUnsignedInt {
     case DEFAULT
     case _2D
     case CUBE
@@ -196,7 +209,9 @@ enum ImageType : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum ImageSampleType : UInt32 {
+
+@objc
+enum ImageSampleType : CUnsignedInt {
     case DEFAULT
     case FLOAT
     case DEPTH
@@ -206,7 +221,9 @@ enum ImageSampleType : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum SamplerType : UInt32 {
+
+@objc
+enum SamplerType : CUnsignedInt {
     case DEFAULT
     case FILTERING
     case NONFILTERING
@@ -214,7 +231,9 @@ enum SamplerType : UInt32 {
     case NUM
     case FORCE_U32
 }
-enum CubeFace : UInt32 {
+
+@objc
+enum CubeFace : CUnsignedInt {
     case POS_X
     case NEG_X
     case POS_Y
@@ -224,12 +243,9 @@ enum CubeFace : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum ShaderStage : UInt32 {
-    case VS
-    case FS
-    case FORCE_U32 = 2147483647
-}
-enum PrimitiveType : UInt32 {
+
+@objc
+enum PrimitiveType : CUnsignedInt {
     case DEFAULT
     case POINTS
     case LINES
@@ -239,14 +255,18 @@ enum PrimitiveType : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum Filter : UInt32 {
+
+@objc
+enum Filter : CUnsignedInt {
     case DEFAULT
     case NEAREST
     case LINEAR
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum Wrap : UInt32 {
+
+@objc
+enum Wrap : CUnsignedInt {
     case DEFAULT
     case REPEAT
     case CLAMP_TO_EDGE
@@ -255,7 +275,9 @@ enum Wrap : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum BorderColor : UInt32 {
+
+@objc
+enum BorderColor : CUnsignedInt {
     case DEFAULT
     case TRANSPARENT_BLACK
     case OPAQUE_BLACK
@@ -263,7 +285,9 @@ enum BorderColor : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum VertexFormat : UInt32 {
+
+@objc
+enum VertexFormat : CUnsignedInt {
     case INVALID
     case FLOAT
     case FLOAT2
@@ -285,14 +309,18 @@ enum VertexFormat : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum VertexStep : UInt32 {
+
+@objc
+enum VertexStep : CUnsignedInt {
     case DEFAULT
     case PER_VERTEX
     case PER_INSTANCE
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum UniformType : UInt32 {
+
+@objc
+enum UniformType : CUnsignedInt {
     case INVALID
     case FLOAT
     case FLOAT2
@@ -306,14 +334,18 @@ enum UniformType : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum UniformLayout : UInt32 {
+
+@objc
+enum UniformLayout : CUnsignedInt {
     case DEFAULT
     case NATIVE
     case STD140
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum CullMode : UInt32 {
+
+@objc
+enum CullMode : CUnsignedInt {
     case DEFAULT
     case NONE
     case FRONT
@@ -321,14 +353,18 @@ enum CullMode : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum FaceWinding : UInt32 {
+
+@objc
+enum FaceWinding : CUnsignedInt {
     case DEFAULT
     case CCW
     case CW
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum CompareFunc : UInt32 {
+
+@objc
+enum CompareFunc : CUnsignedInt {
     case DEFAULT
     case NEVER
     case LESS
@@ -341,7 +377,9 @@ enum CompareFunc : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum StencilOp : UInt32 {
+
+@objc
+enum StencilOp : CUnsignedInt {
     case DEFAULT
     case KEEP
     case ZERO
@@ -354,7 +392,9 @@ enum StencilOp : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum BlendFactor : UInt32 {
+
+@objc
+enum BlendFactor : CUnsignedInt {
     case DEFAULT
     case ZERO
     case ONE
@@ -374,7 +414,9 @@ enum BlendFactor : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum BlendOp : UInt32 {
+
+@objc
+enum BlendOp : CUnsignedInt {
     case DEFAULT
     case ADD
     case SUBTRACT
@@ -382,7 +424,9 @@ enum BlendOp : UInt32 {
     case NUM
     case FORCE_U32 = 2147483647
 }
-enum ColorMask : UInt32 {
+
+@objc
+enum ColorMask : CUnsignedInt {
     case DEFAULT = 0
     case NONE = 16
     case R = 1
@@ -402,14 +446,18 @@ enum ColorMask : UInt32 {
     case RGBA = 15
     case FORCE_U32 = 2147483647
 }
-enum LoadAction : UInt32 {
+
+@objc
+enum LoadAction : CUnsignedInt {
     case DEFAULT
     case CLEAR
     case LOAD
     case DONTCARE
     case FORCE_U32 = 2147483647
 }
-enum StoreAction : UInt32 {
+
+@objc
+enum StoreAction : CUnsignedInt {
     case DEFAULT
     case STORE
     case DONTCARE
@@ -472,24 +520,20 @@ struct Pass {
     var label: UnsafePointer<CChar>? = nil
     var _end_canary: UInt32 = 0
 }
-struct StageBindings {
-    var images: [Image] = Array(repeating: Image(), count: 12)
-    var samplers: [Sampler] = Array(repeating: Sampler(), count: 8)
-    var storage_buffers: [Buffer] = Array(repeating: Buffer(), count: 8)
-}
 struct Bindings {
     var _start_canary: UInt32 = 0
     var vertex_buffers: [Buffer] = Array(repeating: Buffer(), count: 8)
     var vertex_buffer_offsets: [CInt] = Array(repeating: CInt(0), count: 8)
     var index_buffer: Buffer = Buffer()
     var index_buffer_offset: CInt = 0
-    var vs: StageBindings = StageBindings()
-    var fs: StageBindings = StageBindings()
+    var images: [Image] = Array(repeating: Image(), count: 16)
+    var samplers: [Sampler] = Array(repeating: Sampler(), count: 16)
+    var storage_buffers: [Buffer] = Array(repeating: Buffer(), count: 8)
     var _end_canary: UInt32 = 0
 }
 struct BufferDesc {
     var _start_canary: UInt32 = 0
-    var size: UInt = 0
+    var size: Int = 0
     var type: BufferType = .DEFAULT
     var usage: Usage = .DEFAULT
     var data: Range = Range()
@@ -545,57 +589,78 @@ struct SamplerDesc {
     var wgpu_sampler: UnsafeRawPointer? = nil
     var _end_canary: UInt32 = 0
 }
-struct ShaderAttrDesc {
-    var name: UnsafePointer<CChar>? = nil
-    var sem_name: UnsafePointer<CChar>? = nil
-    var sem_index: CInt = 0
+
+@objc
+enum ShaderStage : CUnsignedInt {
+    case NONE
+    case VERTEX
+    case FRAGMENT
 }
-struct ShaderUniformDesc {
-    var name: UnsafePointer<CChar>? = nil
-    var type: UniformType = .INVALID
-    var array_count: CInt = 0
-}
-struct ShaderUniformBlockDesc {
-    var size: UInt = 0
-    var layout: UniformLayout = .DEFAULT
-    var uniforms: [ShaderUniformDesc] = Array(repeating: ShaderUniformDesc(), count: 16)
-}
-struct ShaderStorageBufferDesc {
-    var used: Bool = false
-    var readonly: Bool = false
-}
-struct ShaderImageDesc {
-    var used: Bool = false
-    var multisampled: Bool = false
-    var image_type: ImageType = .DEFAULT
-    var sample_type: ImageSampleType = .DEFAULT
-}
-struct ShaderSamplerDesc {
-    var used: Bool = false
-    var sampler_type: SamplerType = .DEFAULT
-}
-struct ShaderImageSamplerPairDesc {
-    var used: Bool = false
-    var image_slot: CInt = 0
-    var sampler_slot: CInt = 0
-    var glsl_name: UnsafePointer<CChar>? = nil
-}
-struct ShaderStageDesc {
+struct ShaderFunction {
     var source: UnsafePointer<CChar>? = nil
     var bytecode: Range = Range()
     var entry: UnsafePointer<CChar>? = nil
     var d3d11_target: UnsafePointer<CChar>? = nil
-    var uniform_blocks: [ShaderUniformBlockDesc] = Array(repeating: ShaderUniformBlockDesc(), count: 4)
-    var storage_buffers: [ShaderStorageBufferDesc] = Array(repeating: ShaderStorageBufferDesc(), count: 8)
-    var images: [ShaderImageDesc] = Array(repeating: ShaderImageDesc(), count: 12)
-    var samplers: [ShaderSamplerDesc] = Array(repeating: ShaderSamplerDesc(), count: 8)
-    var image_sampler_pairs: [ShaderImageSamplerPairDesc] = Array(repeating: ShaderImageSamplerPairDesc(), count: 12)
+}
+struct ShaderVertexAttr {
+    var glsl_name: UnsafePointer<CChar>? = nil
+    var hlsl_sem_name: UnsafePointer<CChar>? = nil
+    var hlsl_sem_index: UInt8 = 0
+}
+struct GlslShaderUniform {
+    var type: UniformType = .INVALID
+    var array_count: UInt16 = 0
+    var glsl_name: UnsafePointer<CChar>? = nil
+}
+struct ShaderUniformBlock {
+    var stage: ShaderStage = .NONE
+    var size: UInt32 = 0
+    var hlsl_register_b_n: UInt8 = 0
+    var msl_buffer_n: UInt8 = 0
+    var wgsl_group0_binding_n: UInt8 = 0
+    var layout: UniformLayout = .DEFAULT
+    var glsl_uniforms: [GlslShaderUniform] = Array(repeating: GlslShaderUniform(), count: 16)
+}
+struct ShaderImage {
+    var stage: ShaderStage = .NONE
+    var image_type: ImageType = .DEFAULT
+    var sample_type: ImageSampleType = .DEFAULT
+    var multisampled: Bool = false
+    var hlsl_register_t_n: UInt8 = 0
+    var msl_texture_n: UInt8 = 0
+    var wgsl_group1_binding_n: UInt8 = 0
+}
+struct ShaderSampler {
+    var stage: ShaderStage = .NONE
+    var sampler_type: SamplerType = .DEFAULT
+    var hlsl_register_s_n: UInt8 = 0
+    var msl_sampler_n: UInt8 = 0
+    var wgsl_group1_binding_n: UInt8 = 0
+}
+struct ShaderStorageBuffer {
+    var stage: ShaderStage = .NONE
+    var readonly: Bool = false
+    var hlsl_register_t_n: UInt8 = 0
+    var msl_buffer_n: UInt8 = 0
+    var wgsl_group1_binding_n: UInt8 = 0
+    var glsl_binding_n: UInt8 = 0
+}
+struct ShaderImageSamplerPair {
+    var stage: ShaderStage = .NONE
+    var image_slot: UInt8 = 0
+    var sampler_slot: UInt8 = 0
+    var glsl_name: UnsafePointer<CChar>? = nil
 }
 struct ShaderDesc {
     var _start_canary: UInt32 = 0
-    var attrs: [ShaderAttrDesc] = Array(repeating: ShaderAttrDesc(), count: 16)
-    var vs: ShaderStageDesc = ShaderStageDesc()
-    var fs: ShaderStageDesc = ShaderStageDesc()
+    var vertex_func: ShaderFunction = ShaderFunction()
+    var fragment_func: ShaderFunction = ShaderFunction()
+    var attrs: [ShaderVertexAttr] = Array(repeating: ShaderVertexAttr(), count: 16)
+    var uniform_blocks: [ShaderUniformBlock] = Array(repeating: ShaderUniformBlock(), count: 8)
+    var storage_buffers: [ShaderStorageBuffer] = Array(repeating: ShaderStorageBuffer(), count: 8)
+    var images: [ShaderImage] = Array(repeating: ShaderImage(), count: 16)
+    var samplers: [ShaderSampler] = Array(repeating: ShaderSampler(), count: 16)
+    var image_sampler_pairs: [ShaderImageSamplerPair] = Array(repeating: ShaderImageSamplerPair(), count: 16)
     var label: UnsafePointer<CChar>? = nil
     var _end_canary: UInt32 = 0
 }
@@ -843,7 +908,9 @@ struct FrameStats {
     var metal: FrameStatsMetal = FrameStatsMetal()
     var wgpu: FrameStatsWgpu = FrameStatsWgpu()
 }
-enum LogItem : UInt32 {
+
+@objc
+enum LogItem : CUnsignedInt {
     case OK
     case MALLOC_FAILED
     case GL_TEXTURE_FORMAT_NOT_SUPPORTED
@@ -852,7 +919,7 @@ enum LogItem : UInt32 {
     case GL_SHADER_COMPILATION_FAILED
     case GL_SHADER_LINKING_FAILED
     case GL_VERTEX_ATTRIBUTE_NOT_FOUND_IN_SHADER
-    case GL_TEXTURE_NAME_NOT_FOUND_IN_SHADER
+    case GL_IMAGE_SAMPLER_NAME_NOT_FOUND_IN_SHADER
     case GL_FRAMEBUFFER_STATUS_UNDEFINED
     case GL_FRAMEBUFFER_STATUS_INCOMPLETE_ATTACHMENT
     case GL_FRAMEBUFFER_STATUS_INCOMPLETE_MISSING_ATTACHMENT
@@ -891,8 +958,7 @@ enum LogItem : UInt32 {
     case METAL_SHADER_COMPILATION_FAILED
     case METAL_SHADER_CREATION_FAILED
     case METAL_SHADER_COMPILATION_OUTPUT
-    case METAL_VERTEX_SHADER_ENTRY_NOT_FOUND
-    case METAL_FRAGMENT_SHADER_ENTRY_NOT_FOUND
+    case METAL_SHADER_ENTRY_NOT_FOUND
     case METAL_CREATE_RPS_FAILED
     case METAL_CREATE_RPS_OUTPUT
     case METAL_CREATE_DSS_FAILED
@@ -905,13 +971,11 @@ enum LogItem : UInt32 {
     case WGPU_CREATE_TEXTURE_VIEW_FAILED
     case WGPU_CREATE_SAMPLER_FAILED
     case WGPU_CREATE_SHADER_MODULE_FAILED
-    case WGPU_SHADER_TOO_MANY_IMAGES
-    case WGPU_SHADER_TOO_MANY_SAMPLERS
-    case WGPU_SHADER_TOO_MANY_STORAGEBUFFERS
     case WGPU_SHADER_CREATE_BINDGROUP_LAYOUT_FAILED
     case WGPU_CREATE_PIPELINE_LAYOUT_FAILED
     case WGPU_CREATE_RENDER_PIPELINE_FAILED
     case WGPU_ATTACHMENTS_CREATE_TEXTURE_VIEW_FAILED
+    case DRAW_REQUIRED_BINDINGS_OR_UNIFORMS_MISSING
     case IDENTICAL_COMMIT_LISTENER
     case COMMIT_LISTENER_ARRAY_FULL
     case TRACE_HOOKS_NOT_ENABLED
@@ -978,28 +1042,49 @@ enum LogItem : UInt32 {
     case VALIDATE_SHADERDESC_BYTECODE
     case VALIDATE_SHADERDESC_SOURCE_OR_BYTECODE
     case VALIDATE_SHADERDESC_NO_BYTECODE_SIZE
-    case VALIDATE_SHADERDESC_NO_CONT_UBS
     case VALIDATE_SHADERDESC_NO_CONT_UB_MEMBERS
+    case VALIDATE_SHADERDESC_UB_SIZE_IS_ZERO
+    case VALIDATE_SHADERDESC_UB_METAL_BUFFER_SLOT_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_UB_METAL_BUFFER_SLOT_COLLISION
+    case VALIDATE_SHADERDESC_UB_HLSL_REGISTER_B_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_UB_HLSL_REGISTER_B_COLLISION
+    case VALIDATE_SHADERDESC_UB_WGSL_GROUP0_BINDING_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_UB_WGSL_GROUP0_BINDING_COLLISION
     case VALIDATE_SHADERDESC_NO_UB_MEMBERS
-    case VALIDATE_SHADERDESC_UB_MEMBER_NAME
+    case VALIDATE_SHADERDESC_UB_UNIFORM_GLSL_NAME
     case VALIDATE_SHADERDESC_UB_SIZE_MISMATCH
     case VALIDATE_SHADERDESC_UB_ARRAY_COUNT
     case VALIDATE_SHADERDESC_UB_STD140_ARRAY_TYPE
-    case VALIDATE_SHADERDESC_NO_CONT_STORAGEBUFFERS
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_METAL_BUFFER_SLOT_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_METAL_BUFFER_SLOT_COLLISION
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_HLSL_REGISTER_T_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_HLSL_REGISTER_T_COLLISION
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_GLSL_BINDING_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_GLSL_BINDING_COLLISION
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_WGSL_GROUP1_BINDING_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_STORAGEBUFFER_WGSL_GROUP1_BINDING_COLLISION
     case VALIDATE_SHADERDESC_STORAGEBUFFER_READONLY
-    case VALIDATE_SHADERDESC_NO_CONT_IMAGES
-    case VALIDATE_SHADERDESC_NO_CONT_SAMPLERS
+    case VALIDATE_SHADERDESC_IMAGE_METAL_TEXTURE_SLOT_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_IMAGE_METAL_TEXTURE_SLOT_COLLISION
+    case VALIDATE_SHADERDESC_IMAGE_HLSL_REGISTER_T_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_IMAGE_HLSL_REGISTER_T_COLLISION
+    case VALIDATE_SHADERDESC_IMAGE_WGSL_GROUP1_BINDING_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_IMAGE_WGSL_GROUP1_BINDING_COLLISION
+    case VALIDATE_SHADERDESC_SAMPLER_METAL_SAMPLER_SLOT_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_SAMPLER_METAL_SAMPLER_SLOT_COLLISION
+    case VALIDATE_SHADERDESC_SAMPLER_HLSL_REGISTER_S_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_SAMPLER_HLSL_REGISTER_S_COLLISION
+    case VALIDATE_SHADERDESC_SAMPLER_WGSL_GROUP1_BINDING_OUT_OF_RANGE
+    case VALIDATE_SHADERDESC_SAMPLER_WGSL_GROUP1_BINDING_COLLISION
     case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_IMAGE_SLOT_OUT_OF_RANGE
     case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_SAMPLER_SLOT_OUT_OF_RANGE
-    case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_NAME_REQUIRED_FOR_GL
-    case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_HAS_NAME_BUT_NOT_USED
-    case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_HAS_IMAGE_BUT_NOT_USED
-    case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_HAS_SAMPLER_BUT_NOT_USED
+    case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_IMAGE_STAGE_MISMATCH
+    case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_SAMPLER_STAGE_MISMATCH
+    case VALIDATE_SHADERDESC_IMAGE_SAMPLER_PAIR_GLSL_NAME
     case VALIDATE_SHADERDESC_NONFILTERING_SAMPLER_REQUIRED
     case VALIDATE_SHADERDESC_COMPARISON_SAMPLER_REQUIRED
     case VALIDATE_SHADERDESC_IMAGE_NOT_REFERENCED_BY_IMAGE_SAMPLER_PAIRS
     case VALIDATE_SHADERDESC_SAMPLER_NOT_REFERENCED_BY_IMAGE_SAMPLER_PAIRS
-    case VALIDATE_SHADERDESC_NO_CONT_IMAGE_SAMPLER_PAIRS
     case VALIDATE_SHADERDESC_ATTR_STRING_TOO_LONG
     case VALIDATE_PIPELINEDESC_CANARY
     case VALIDATE_PIPELINEDESC_SHADER
@@ -1085,7 +1170,7 @@ enum LogItem : UInt32 {
     case VALIDATE_ABND_PIPELINE
     case VALIDATE_ABND_PIPELINE_EXISTS
     case VALIDATE_ABND_PIPELINE_VALID
-    case VALIDATE_ABND_VBS
+    case VALIDATE_ABND_EXPECTED_VB
     case VALIDATE_ABND_VB_EXISTS
     case VALIDATE_ABND_VB_TYPE
     case VALIDATE_ABND_VB_OVERFLOW
@@ -1094,40 +1179,20 @@ enum LogItem : UInt32 {
     case VALIDATE_ABND_IB_EXISTS
     case VALIDATE_ABND_IB_TYPE
     case VALIDATE_ABND_IB_OVERFLOW
-    case VALIDATE_ABND_VS_EXPECTED_IMAGE_BINDING
-    case VALIDATE_ABND_VS_IMG_EXISTS
-    case VALIDATE_ABND_VS_IMAGE_TYPE_MISMATCH
-    case VALIDATE_ABND_VS_IMAGE_MSAA
-    case VALIDATE_ABND_VS_EXPECTED_FILTERABLE_IMAGE
-    case VALIDATE_ABND_VS_EXPECTED_DEPTH_IMAGE
-    case VALIDATE_ABND_VS_UNEXPECTED_IMAGE_BINDING
-    case VALIDATE_ABND_VS_EXPECTED_SAMPLER_BINDING
-    case VALIDATE_ABND_VS_UNEXPECTED_SAMPLER_COMPARE_NEVER
-    case VALIDATE_ABND_VS_EXPECTED_SAMPLER_COMPARE_NEVER
-    case VALIDATE_ABND_VS_EXPECTED_NONFILTERING_SAMPLER
-    case VALIDATE_ABND_VS_UNEXPECTED_SAMPLER_BINDING
-    case VALIDATE_ABND_VS_SMP_EXISTS
-    case VALIDATE_ABND_VS_EXPECTED_STORAGEBUFFER_BINDING
-    case VALIDATE_ABND_VS_STORAGEBUFFER_EXISTS
-    case VALIDATE_ABND_VS_STORAGEBUFFER_BINDING_BUFFERTYPE
-    case VALIDATE_ABND_VS_UNEXPECTED_STORAGEBUFFER_BINDING
-    case VALIDATE_ABND_FS_EXPECTED_IMAGE_BINDING
-    case VALIDATE_ABND_FS_IMG_EXISTS
-    case VALIDATE_ABND_FS_IMAGE_TYPE_MISMATCH
-    case VALIDATE_ABND_FS_IMAGE_MSAA
-    case VALIDATE_ABND_FS_EXPECTED_FILTERABLE_IMAGE
-    case VALIDATE_ABND_FS_EXPECTED_DEPTH_IMAGE
-    case VALIDATE_ABND_FS_UNEXPECTED_IMAGE_BINDING
-    case VALIDATE_ABND_FS_EXPECTED_SAMPLER_BINDING
-    case VALIDATE_ABND_FS_UNEXPECTED_SAMPLER_COMPARE_NEVER
-    case VALIDATE_ABND_FS_EXPECTED_SAMPLER_COMPARE_NEVER
-    case VALIDATE_ABND_FS_EXPECTED_NONFILTERING_SAMPLER
-    case VALIDATE_ABND_FS_UNEXPECTED_SAMPLER_BINDING
-    case VALIDATE_ABND_FS_SMP_EXISTS
-    case VALIDATE_ABND_FS_EXPECTED_STORAGEBUFFER_BINDING
-    case VALIDATE_ABND_FS_STORAGEBUFFER_EXISTS
-    case VALIDATE_ABND_FS_STORAGEBUFFER_BINDING_BUFFERTYPE
-    case VALIDATE_ABND_FS_UNEXPECTED_STORAGEBUFFER_BINDING
+    case VALIDATE_ABND_EXPECTED_IMAGE_BINDING
+    case VALIDATE_ABND_IMG_EXISTS
+    case VALIDATE_ABND_IMAGE_TYPE_MISMATCH
+    case VALIDATE_ABND_IMAGE_MSAA
+    case VALIDATE_ABND_EXPECTED_FILTERABLE_IMAGE
+    case VALIDATE_ABND_EXPECTED_DEPTH_IMAGE
+    case VALIDATE_ABND_EXPECTED_SAMPLER_BINDING
+    case VALIDATE_ABND_UNEXPECTED_SAMPLER_COMPARE_NEVER
+    case VALIDATE_ABND_EXPECTED_SAMPLER_COMPARE_NEVER
+    case VALIDATE_ABND_EXPECTED_NONFILTERING_SAMPLER
+    case VALIDATE_ABND_SMP_EXISTS
+    case VALIDATE_ABND_EXPECTED_STORAGEBUFFER_BINDING
+    case VALIDATE_ABND_STORAGEBUFFER_EXISTS
+    case VALIDATE_ABND_STORAGEBUFFER_BINDING_BUFFERTYPE
     case VALIDATE_AUB_NO_PIPELINE
     case VALIDATE_AUB_NO_UB_AT_SLOT
     case VALIDATE_AUB_SIZE
@@ -1168,7 +1233,7 @@ struct CommitListener {
     var user_data: UnsafeMutableRawPointer? = nil
 }
 struct Allocator {
-    var alloc_fn: (@convention(c) (UInt, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
+    var alloc_fn: (@convention(c) (Int, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
     var free_fn: (@convention(c) (UnsafeMutableRawPointer?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
@@ -1201,7 +1266,7 @@ struct Desc {
 func sg_setup(_: UnsafeRawPointer?)
 
 func setup(_ desc: UnsafePointer<Desc>?) {
-    return sg_setup(desc)
+    return sg_setup(UnsafePointer(desc))
 }
 @_extern(c, "sg_shutdown")
 func sg_shutdown()
@@ -1234,124 +1299,124 @@ func popDebugGroup() {
     return sg_pop_debug_group()
 }
 @_extern(c, "sg_add_commit_listener")
-func sg_add_commit_listener(_: CommitListener) -> Bool
+func sg_add_commit_listener(_: OpaquePointer?) -> Bool
 
-func addCommitListener(_ listener: CommitListener) -> Bool {
+func addCommitListener(_ listener: OpaquePointer?) -> Bool {
     return sg_add_commit_listener(listener)
 }
 @_extern(c, "sg_remove_commit_listener")
-func sg_remove_commit_listener(_: CommitListener) -> Bool
+func sg_remove_commit_listener(_: OpaquePointer?) -> Bool
 
-func removeCommitListener(_ listener: CommitListener) -> Bool {
+func removeCommitListener(_ listener: OpaquePointer?) -> Bool {
     return sg_remove_commit_listener(listener)
 }
 @_extern(c, "sg_make_buffer")
-func sg_make_buffer(_: UnsafeRawPointer?) -> Buffer
+func sg_make_buffer(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makeBuffer(_ desc: UnsafePointer<BufferDesc>?) -> Buffer {
-    return sg_make_buffer(desc)
+func makeBuffer(_ desc: UnsafePointer<BufferDesc>?) -> OpaquePointer? {
+    return sg_make_buffer(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_image")
-func sg_make_image(_: UnsafeRawPointer?) -> Image
+func sg_make_image(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makeImage(_ desc: UnsafePointer<ImageDesc>?) -> Image {
-    return sg_make_image(desc)
+func makeImage(_ desc: UnsafePointer<ImageDesc>?) -> OpaquePointer? {
+    return sg_make_image(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_sampler")
-func sg_make_sampler(_: UnsafeRawPointer?) -> Sampler
+func sg_make_sampler(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makeSampler(_ desc: UnsafePointer<SamplerDesc>?) -> Sampler {
-    return sg_make_sampler(desc)
+func makeSampler(_ desc: UnsafePointer<SamplerDesc>?) -> OpaquePointer? {
+    return sg_make_sampler(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_shader")
-func sg_make_shader(_: UnsafeRawPointer?) -> Shader
+func sg_make_shader(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makeShader(_ desc: UnsafePointer<ShaderDesc>?) -> Shader {
-    return sg_make_shader(desc)
+func makeShader(_ desc: UnsafePointer<ShaderDesc>?) -> OpaquePointer? {
+    return sg_make_shader(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_pipeline")
-func sg_make_pipeline(_: UnsafeRawPointer?) -> Pipeline
+func sg_make_pipeline(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makePipeline(_ desc: UnsafePointer<PipelineDesc>?) -> Pipeline {
-    return sg_make_pipeline(desc)
+func makePipeline(_ desc: UnsafePointer<PipelineDesc>?) -> OpaquePointer? {
+    return sg_make_pipeline(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_attachments")
-func sg_make_attachments(_: UnsafeRawPointer?) -> Attachments
+func sg_make_attachments(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makeAttachments(_ desc: UnsafePointer<AttachmentsDesc>?) -> Attachments {
-    return sg_make_attachments(desc)
+func makeAttachments(_ desc: UnsafePointer<AttachmentsDesc>?) -> OpaquePointer? {
+    return sg_make_attachments(UnsafePointer(desc))
 }
 @_extern(c, "sg_destroy_buffer")
-func sg_destroy_buffer(_: Buffer)
+func sg_destroy_buffer(_: OpaquePointer?)
 
-func destroyBuffer(_ buf: Buffer) {
+func destroyBuffer(_ buf: OpaquePointer?) {
     return sg_destroy_buffer(buf)
 }
 @_extern(c, "sg_destroy_image")
-func sg_destroy_image(_: Image)
+func sg_destroy_image(_: OpaquePointer?)
 
-func destroyImage(_ img: Image) {
+func destroyImage(_ img: OpaquePointer?) {
     return sg_destroy_image(img)
 }
 @_extern(c, "sg_destroy_sampler")
-func sg_destroy_sampler(_: Sampler)
+func sg_destroy_sampler(_: OpaquePointer?)
 
-func destroySampler(_ smp: Sampler) {
+func destroySampler(_ smp: OpaquePointer?) {
     return sg_destroy_sampler(smp)
 }
 @_extern(c, "sg_destroy_shader")
-func sg_destroy_shader(_: Shader)
+func sg_destroy_shader(_: OpaquePointer?)
 
-func destroyShader(_ shd: Shader) {
+func destroyShader(_ shd: OpaquePointer?) {
     return sg_destroy_shader(shd)
 }
 @_extern(c, "sg_destroy_pipeline")
-func sg_destroy_pipeline(_: Pipeline)
+func sg_destroy_pipeline(_: OpaquePointer?)
 
-func destroyPipeline(_ pip: Pipeline) {
+func destroyPipeline(_ pip: OpaquePointer?) {
     return sg_destroy_pipeline(pip)
 }
 @_extern(c, "sg_destroy_attachments")
-func sg_destroy_attachments(_: Attachments)
+func sg_destroy_attachments(_: OpaquePointer?)
 
-func destroyAttachments(_ atts: Attachments) {
+func destroyAttachments(_ atts: OpaquePointer?) {
     return sg_destroy_attachments(atts)
 }
 @_extern(c, "sg_update_buffer")
-func sg_update_buffer(_: Buffer, _: UnsafeRawPointer?)
+func sg_update_buffer(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func updateBuffer(_ buf: Buffer, _ data: UnsafePointer<Range>?) {
-    return sg_update_buffer(buf, data)
+func updateBuffer(_ buf: OpaquePointer?, _ data: UnsafePointer<Range>?) {
+    return sg_update_buffer(buf, UnsafePointer(data))
 }
 @_extern(c, "sg_update_image")
-func sg_update_image(_: Image, _: UnsafeRawPointer?)
+func sg_update_image(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func updateImage(_ img: Image, _ data: UnsafePointer<ImageData>?) {
-    return sg_update_image(img, data)
+func updateImage(_ img: OpaquePointer?, _ data: UnsafePointer<ImageData>?) {
+    return sg_update_image(img, UnsafePointer(data))
 }
 @_extern(c, "sg_append_buffer")
-func sg_append_buffer(_: Buffer, _: UnsafeRawPointer?) -> CInt
+func sg_append_buffer(_: OpaquePointer?, _: UnsafeRawPointer?) -> CInt
 
-func appendBuffer(_ buf: Buffer, _ data: UnsafePointer<Range>?) -> CInt {
-    return sg_append_buffer(buf, data)
+func appendBuffer(_ buf: OpaquePointer?, _ data: UnsafePointer<Range>?) -> CInt {
+    return sg_append_buffer(buf, UnsafePointer(data))
 }
 @_extern(c, "sg_query_buffer_overflow")
-func sg_query_buffer_overflow(_: Buffer) -> Bool
+func sg_query_buffer_overflow(_: OpaquePointer?) -> Bool
 
-func queryBufferOverflow(_ buf: Buffer) -> Bool {
+func queryBufferOverflow(_ buf: OpaquePointer?) -> Bool {
     return sg_query_buffer_overflow(buf)
 }
 @_extern(c, "sg_query_buffer_will_overflow")
-func sg_query_buffer_will_overflow(_: Buffer, _: UInt) -> Bool
+func sg_query_buffer_will_overflow(_: OpaquePointer?, _: Int) -> Bool
 
-func queryBufferWillOverflow(_ buf: Buffer, _ size: UInt) -> Bool {
+func queryBufferWillOverflow(_ buf: OpaquePointer?, _ size: Int) -> Bool {
     return sg_query_buffer_will_overflow(buf, size)
 }
 @_extern(c, "sg_begin_pass")
 func sg_begin_pass(_: UnsafeRawPointer?)
 
 func beginPass(_ pass: UnsafePointer<Pass>?) {
-    return sg_begin_pass(pass)
+    return sg_begin_pass(UnsafePointer(pass))
 }
 @_extern(c, "sg_apply_viewport")
 func sg_apply_viewport(_: CInt, _: CInt, _: CInt, _: CInt, _: Bool)
@@ -1378,22 +1443,22 @@ func applyScissorRectf(_ x: Float, _ y: Float, _ width: Float, _ height: Float, 
     return sg_apply_scissor_rectf(x, y, width, height, origin_top_left)
 }
 @_extern(c, "sg_apply_pipeline")
-func sg_apply_pipeline(_: Pipeline)
+func sg_apply_pipeline(_: OpaquePointer?)
 
-func applyPipeline(_ pip: Pipeline) {
+func applyPipeline(_ pip: OpaquePointer?) {
     return sg_apply_pipeline(pip)
 }
 @_extern(c, "sg_apply_bindings")
 func sg_apply_bindings(_: UnsafeRawPointer?)
 
 func applyBindings(_ bindings: UnsafePointer<Bindings>?) {
-    return sg_apply_bindings(bindings)
+    return sg_apply_bindings(UnsafePointer(bindings))
 }
 @_extern(c, "sg_apply_uniforms")
-func sg_apply_uniforms(_: ShaderStage, _: UInt32, _: UnsafeRawPointer?)
+func sg_apply_uniforms(_: CInt, _: UnsafeRawPointer?)
 
-func applyUniforms(_ stage: ShaderStage, _ ub_index: UInt32, _ data: UnsafePointer<Range>?) {
-    return sg_apply_uniforms(stage, ub_index, data)
+func applyUniforms(_ ub_slot: CInt, _ data: UnsafePointer<Range>?) {
+    return sg_apply_uniforms(ub_slot, UnsafePointer(data))
 }
 @_extern(c, "sg_draw")
 func sg_draw(_: UInt32, _: UInt32, _: UInt32)
@@ -1414,9 +1479,9 @@ func commit() {
     return sg_commit()
 }
 @_extern(c, "sg_query_desc")
-func sg_query_desc() -> Desc
+func sg_query_desc() -> OpaquePointer?
 
-func queryDesc() -> Desc {
+func queryDesc() -> OpaquePointer? {
     return sg_query_desc()
 }
 @_extern(c, "sg_query_backend")
@@ -1426,21 +1491,21 @@ func queryBackend() -> Backend {
     return sg_query_backend()
 }
 @_extern(c, "sg_query_features")
-func sg_query_features() -> Features
+func sg_query_features() -> OpaquePointer?
 
-func queryFeatures() -> Features {
+func queryFeatures() -> OpaquePointer? {
     return sg_query_features()
 }
 @_extern(c, "sg_query_limits")
-func sg_query_limits() -> Limits
+func sg_query_limits() -> OpaquePointer?
 
-func queryLimits() -> Limits {
+func queryLimits() -> OpaquePointer? {
     return sg_query_limits()
 }
 @_extern(c, "sg_query_pixelformat")
-func sg_query_pixelformat(_: PixelFormat) -> PixelformatInfo
+func sg_query_pixelformat(_: PixelFormat) -> OpaquePointer?
 
-func queryPixelformat(_ fmt: PixelFormat) -> PixelformatInfo {
+func queryPixelformat(_ fmt: PixelFormat) -> OpaquePointer? {
     return sg_query_pixelformat(fmt)
 }
 @_extern(c, "sg_query_row_pitch")
@@ -1456,327 +1521,327 @@ func querySurfacePitch(_ fmt: PixelFormat, _ width: CInt, _ height: CInt, _ row_
     return sg_query_surface_pitch(fmt, width, height, row_align_bytes)
 }
 @_extern(c, "sg_query_buffer_state")
-func sg_query_buffer_state(_: Buffer) -> ResourceState
+func sg_query_buffer_state(_: OpaquePointer?) -> ResourceState
 
-func queryBufferState(_ buf: Buffer) -> ResourceState {
+func queryBufferState(_ buf: OpaquePointer?) -> ResourceState {
     return sg_query_buffer_state(buf)
 }
 @_extern(c, "sg_query_image_state")
-func sg_query_image_state(_: Image) -> ResourceState
+func sg_query_image_state(_: OpaquePointer?) -> ResourceState
 
-func queryImageState(_ img: Image) -> ResourceState {
+func queryImageState(_ img: OpaquePointer?) -> ResourceState {
     return sg_query_image_state(img)
 }
 @_extern(c, "sg_query_sampler_state")
-func sg_query_sampler_state(_: Sampler) -> ResourceState
+func sg_query_sampler_state(_: OpaquePointer?) -> ResourceState
 
-func querySamplerState(_ smp: Sampler) -> ResourceState {
+func querySamplerState(_ smp: OpaquePointer?) -> ResourceState {
     return sg_query_sampler_state(smp)
 }
 @_extern(c, "sg_query_shader_state")
-func sg_query_shader_state(_: Shader) -> ResourceState
+func sg_query_shader_state(_: OpaquePointer?) -> ResourceState
 
-func queryShaderState(_ shd: Shader) -> ResourceState {
+func queryShaderState(_ shd: OpaquePointer?) -> ResourceState {
     return sg_query_shader_state(shd)
 }
 @_extern(c, "sg_query_pipeline_state")
-func sg_query_pipeline_state(_: Pipeline) -> ResourceState
+func sg_query_pipeline_state(_: OpaquePointer?) -> ResourceState
 
-func queryPipelineState(_ pip: Pipeline) -> ResourceState {
+func queryPipelineState(_ pip: OpaquePointer?) -> ResourceState {
     return sg_query_pipeline_state(pip)
 }
 @_extern(c, "sg_query_attachments_state")
-func sg_query_attachments_state(_: Attachments) -> ResourceState
+func sg_query_attachments_state(_: OpaquePointer?) -> ResourceState
 
-func queryAttachmentsState(_ atts: Attachments) -> ResourceState {
+func queryAttachmentsState(_ atts: OpaquePointer?) -> ResourceState {
     return sg_query_attachments_state(atts)
 }
 @_extern(c, "sg_query_buffer_info")
-func sg_query_buffer_info(_: Buffer) -> BufferInfo
+func sg_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
 
-func queryBufferInfo(_ buf: Buffer) -> BufferInfo {
+func queryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_query_buffer_info(buf)
 }
 @_extern(c, "sg_query_image_info")
-func sg_query_image_info(_: Image) -> ImageInfo
+func sg_query_image_info(_: OpaquePointer?) -> OpaquePointer?
 
-func queryImageInfo(_ img: Image) -> ImageInfo {
+func queryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_query_image_info(img)
 }
 @_extern(c, "sg_query_sampler_info")
-func sg_query_sampler_info(_: Sampler) -> SamplerInfo
+func sg_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
 
-func querySamplerInfo(_ smp: Sampler) -> SamplerInfo {
+func querySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_query_sampler_info(smp)
 }
 @_extern(c, "sg_query_shader_info")
-func sg_query_shader_info(_: Shader) -> ShaderInfo
+func sg_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
 
-func queryShaderInfo(_ shd: Shader) -> ShaderInfo {
+func queryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_query_shader_info(shd)
 }
 @_extern(c, "sg_query_pipeline_info")
-func sg_query_pipeline_info(_: Pipeline) -> PipelineInfo
+func sg_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
 
-func queryPipelineInfo(_ pip: Pipeline) -> PipelineInfo {
+func queryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_query_pipeline_info(pip)
 }
 @_extern(c, "sg_query_attachments_info")
-func sg_query_attachments_info(_: Attachments) -> AttachmentsInfo
+func sg_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
 
-func queryAttachmentsInfo(_ atts: Attachments) -> AttachmentsInfo {
+func queryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_query_attachments_info(atts)
 }
 @_extern(c, "sg_query_buffer_desc")
-func sg_query_buffer_desc(_: Buffer) -> BufferDesc
+func sg_query_buffer_desc(_: OpaquePointer?) -> OpaquePointer?
 
-func queryBufferDesc(_ buf: Buffer) -> BufferDesc {
+func queryBufferDesc(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_query_buffer_desc(buf)
 }
 @_extern(c, "sg_query_image_desc")
-func sg_query_image_desc(_: Image) -> ImageDesc
+func sg_query_image_desc(_: OpaquePointer?) -> OpaquePointer?
 
-func queryImageDesc(_ img: Image) -> ImageDesc {
+func queryImageDesc(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_query_image_desc(img)
 }
 @_extern(c, "sg_query_sampler_desc")
-func sg_query_sampler_desc(_: Sampler) -> SamplerDesc
+func sg_query_sampler_desc(_: OpaquePointer?) -> OpaquePointer?
 
-func querySamplerDesc(_ smp: Sampler) -> SamplerDesc {
+func querySamplerDesc(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_query_sampler_desc(smp)
 }
 @_extern(c, "sg_query_shader_desc")
-func sg_query_shader_desc(_: Shader) -> ShaderDesc
+func sg_query_shader_desc(_: OpaquePointer?) -> OpaquePointer?
 
-func queryShaderDesc(_ shd: Shader) -> ShaderDesc {
+func queryShaderDesc(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_query_shader_desc(shd)
 }
 @_extern(c, "sg_query_pipeline_desc")
-func sg_query_pipeline_desc(_: Pipeline) -> PipelineDesc
+func sg_query_pipeline_desc(_: OpaquePointer?) -> OpaquePointer?
 
-func queryPipelineDesc(_ pip: Pipeline) -> PipelineDesc {
+func queryPipelineDesc(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_query_pipeline_desc(pip)
 }
 @_extern(c, "sg_query_attachments_desc")
-func sg_query_attachments_desc(_: Attachments) -> AttachmentsDesc
+func sg_query_attachments_desc(_: OpaquePointer?) -> OpaquePointer?
 
-func queryAttachmentsDesc(_ atts: Attachments) -> AttachmentsDesc {
+func queryAttachmentsDesc(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_query_attachments_desc(atts)
 }
 @_extern(c, "sg_query_buffer_defaults")
-func sg_query_buffer_defaults(_: UnsafeRawPointer?) -> BufferDesc
+func sg_query_buffer_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func queryBufferDefaults(_ desc: UnsafePointer<BufferDesc>?) -> BufferDesc {
-    return sg_query_buffer_defaults(desc)
+func queryBufferDefaults(_ desc: UnsafePointer<BufferDesc>?) -> OpaquePointer? {
+    return sg_query_buffer_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_image_defaults")
-func sg_query_image_defaults(_: UnsafeRawPointer?) -> ImageDesc
+func sg_query_image_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func queryImageDefaults(_ desc: UnsafePointer<ImageDesc>?) -> ImageDesc {
-    return sg_query_image_defaults(desc)
+func queryImageDefaults(_ desc: UnsafePointer<ImageDesc>?) -> OpaquePointer? {
+    return sg_query_image_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_sampler_defaults")
-func sg_query_sampler_defaults(_: UnsafeRawPointer?) -> SamplerDesc
+func sg_query_sampler_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func querySamplerDefaults(_ desc: UnsafePointer<SamplerDesc>?) -> SamplerDesc {
-    return sg_query_sampler_defaults(desc)
+func querySamplerDefaults(_ desc: UnsafePointer<SamplerDesc>?) -> OpaquePointer? {
+    return sg_query_sampler_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_shader_defaults")
-func sg_query_shader_defaults(_: UnsafeRawPointer?) -> ShaderDesc
+func sg_query_shader_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func queryShaderDefaults(_ desc: UnsafePointer<ShaderDesc>?) -> ShaderDesc {
-    return sg_query_shader_defaults(desc)
+func queryShaderDefaults(_ desc: UnsafePointer<ShaderDesc>?) -> OpaquePointer? {
+    return sg_query_shader_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_pipeline_defaults")
-func sg_query_pipeline_defaults(_: UnsafeRawPointer?) -> PipelineDesc
+func sg_query_pipeline_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func queryPipelineDefaults(_ desc: UnsafePointer<PipelineDesc>?) -> PipelineDesc {
-    return sg_query_pipeline_defaults(desc)
+func queryPipelineDefaults(_ desc: UnsafePointer<PipelineDesc>?) -> OpaquePointer? {
+    return sg_query_pipeline_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_attachments_defaults")
-func sg_query_attachments_defaults(_: UnsafeRawPointer?) -> AttachmentsDesc
+func sg_query_attachments_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func queryAttachmentsDefaults(_ desc: UnsafePointer<AttachmentsDesc>?) -> AttachmentsDesc {
-    return sg_query_attachments_defaults(desc)
+func queryAttachmentsDefaults(_ desc: UnsafePointer<AttachmentsDesc>?) -> OpaquePointer? {
+    return sg_query_attachments_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_alloc_buffer")
-func sg_alloc_buffer() -> Buffer
+func sg_alloc_buffer() -> OpaquePointer?
 
-func allocBuffer() -> Buffer {
+func allocBuffer() -> OpaquePointer? {
     return sg_alloc_buffer()
 }
 @_extern(c, "sg_alloc_image")
-func sg_alloc_image() -> Image
+func sg_alloc_image() -> OpaquePointer?
 
-func allocImage() -> Image {
+func allocImage() -> OpaquePointer? {
     return sg_alloc_image()
 }
 @_extern(c, "sg_alloc_sampler")
-func sg_alloc_sampler() -> Sampler
+func sg_alloc_sampler() -> OpaquePointer?
 
-func allocSampler() -> Sampler {
+func allocSampler() -> OpaquePointer? {
     return sg_alloc_sampler()
 }
 @_extern(c, "sg_alloc_shader")
-func sg_alloc_shader() -> Shader
+func sg_alloc_shader() -> OpaquePointer?
 
-func allocShader() -> Shader {
+func allocShader() -> OpaquePointer? {
     return sg_alloc_shader()
 }
 @_extern(c, "sg_alloc_pipeline")
-func sg_alloc_pipeline() -> Pipeline
+func sg_alloc_pipeline() -> OpaquePointer?
 
-func allocPipeline() -> Pipeline {
+func allocPipeline() -> OpaquePointer? {
     return sg_alloc_pipeline()
 }
 @_extern(c, "sg_alloc_attachments")
-func sg_alloc_attachments() -> Attachments
+func sg_alloc_attachments() -> OpaquePointer?
 
-func allocAttachments() -> Attachments {
+func allocAttachments() -> OpaquePointer? {
     return sg_alloc_attachments()
 }
 @_extern(c, "sg_dealloc_buffer")
-func sg_dealloc_buffer(_: Buffer)
+func sg_dealloc_buffer(_: OpaquePointer?)
 
-func deallocBuffer(_ buf: Buffer) {
+func deallocBuffer(_ buf: OpaquePointer?) {
     return sg_dealloc_buffer(buf)
 }
 @_extern(c, "sg_dealloc_image")
-func sg_dealloc_image(_: Image)
+func sg_dealloc_image(_: OpaquePointer?)
 
-func deallocImage(_ img: Image) {
+func deallocImage(_ img: OpaquePointer?) {
     return sg_dealloc_image(img)
 }
 @_extern(c, "sg_dealloc_sampler")
-func sg_dealloc_sampler(_: Sampler)
+func sg_dealloc_sampler(_: OpaquePointer?)
 
-func deallocSampler(_ smp: Sampler) {
+func deallocSampler(_ smp: OpaquePointer?) {
     return sg_dealloc_sampler(smp)
 }
 @_extern(c, "sg_dealloc_shader")
-func sg_dealloc_shader(_: Shader)
+func sg_dealloc_shader(_: OpaquePointer?)
 
-func deallocShader(_ shd: Shader) {
+func deallocShader(_ shd: OpaquePointer?) {
     return sg_dealloc_shader(shd)
 }
 @_extern(c, "sg_dealloc_pipeline")
-func sg_dealloc_pipeline(_: Pipeline)
+func sg_dealloc_pipeline(_: OpaquePointer?)
 
-func deallocPipeline(_ pip: Pipeline) {
+func deallocPipeline(_ pip: OpaquePointer?) {
     return sg_dealloc_pipeline(pip)
 }
 @_extern(c, "sg_dealloc_attachments")
-func sg_dealloc_attachments(_: Attachments)
+func sg_dealloc_attachments(_: OpaquePointer?)
 
-func deallocAttachments(_ attachments: Attachments) {
+func deallocAttachments(_ attachments: OpaquePointer?) {
     return sg_dealloc_attachments(attachments)
 }
 @_extern(c, "sg_init_buffer")
-func sg_init_buffer(_: Buffer, _: UnsafeRawPointer?)
+func sg_init_buffer(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func initBuffer(_ buf: Buffer, _ desc: UnsafePointer<BufferDesc>?) {
-    return sg_init_buffer(buf, desc)
+func initBuffer(_ buf: OpaquePointer?, _ desc: UnsafePointer<BufferDesc>?) {
+    return sg_init_buffer(buf, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_image")
-func sg_init_image(_: Image, _: UnsafeRawPointer?)
+func sg_init_image(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func initImage(_ img: Image, _ desc: UnsafePointer<ImageDesc>?) {
-    return sg_init_image(img, desc)
+func initImage(_ img: OpaquePointer?, _ desc: UnsafePointer<ImageDesc>?) {
+    return sg_init_image(img, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_sampler")
-func sg_init_sampler(_: Sampler, _: UnsafeRawPointer?)
+func sg_init_sampler(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func initSampler(_ smg: Sampler, _ desc: UnsafePointer<SamplerDesc>?) {
-    return sg_init_sampler(smg, desc)
+func initSampler(_ smg: OpaquePointer?, _ desc: UnsafePointer<SamplerDesc>?) {
+    return sg_init_sampler(smg, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_shader")
-func sg_init_shader(_: Shader, _: UnsafeRawPointer?)
+func sg_init_shader(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func initShader(_ shd: Shader, _ desc: UnsafePointer<ShaderDesc>?) {
-    return sg_init_shader(shd, desc)
+func initShader(_ shd: OpaquePointer?, _ desc: UnsafePointer<ShaderDesc>?) {
+    return sg_init_shader(shd, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_pipeline")
-func sg_init_pipeline(_: Pipeline, _: UnsafeRawPointer?)
+func sg_init_pipeline(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func initPipeline(_ pip: Pipeline, _ desc: UnsafePointer<PipelineDesc>?) {
-    return sg_init_pipeline(pip, desc)
+func initPipeline(_ pip: OpaquePointer?, _ desc: UnsafePointer<PipelineDesc>?) {
+    return sg_init_pipeline(pip, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_attachments")
-func sg_init_attachments(_: Attachments, _: UnsafeRawPointer?)
+func sg_init_attachments(_: OpaquePointer?, _: UnsafeRawPointer?)
 
-func initAttachments(_ attachments: Attachments, _ desc: UnsafePointer<AttachmentsDesc>?) {
-    return sg_init_attachments(attachments, desc)
+func initAttachments(_ attachments: OpaquePointer?, _ desc: UnsafePointer<AttachmentsDesc>?) {
+    return sg_init_attachments(attachments, UnsafePointer(desc))
 }
 @_extern(c, "sg_uninit_buffer")
-func sg_uninit_buffer(_: Buffer)
+func sg_uninit_buffer(_: OpaquePointer?)
 
-func uninitBuffer(_ buf: Buffer) {
+func uninitBuffer(_ buf: OpaquePointer?) {
     return sg_uninit_buffer(buf)
 }
 @_extern(c, "sg_uninit_image")
-func sg_uninit_image(_: Image)
+func sg_uninit_image(_: OpaquePointer?)
 
-func uninitImage(_ img: Image) {
+func uninitImage(_ img: OpaquePointer?) {
     return sg_uninit_image(img)
 }
 @_extern(c, "sg_uninit_sampler")
-func sg_uninit_sampler(_: Sampler)
+func sg_uninit_sampler(_: OpaquePointer?)
 
-func uninitSampler(_ smp: Sampler) {
+func uninitSampler(_ smp: OpaquePointer?) {
     return sg_uninit_sampler(smp)
 }
 @_extern(c, "sg_uninit_shader")
-func sg_uninit_shader(_: Shader)
+func sg_uninit_shader(_: OpaquePointer?)
 
-func uninitShader(_ shd: Shader) {
+func uninitShader(_ shd: OpaquePointer?) {
     return sg_uninit_shader(shd)
 }
 @_extern(c, "sg_uninit_pipeline")
-func sg_uninit_pipeline(_: Pipeline)
+func sg_uninit_pipeline(_: OpaquePointer?)
 
-func uninitPipeline(_ pip: Pipeline) {
+func uninitPipeline(_ pip: OpaquePointer?) {
     return sg_uninit_pipeline(pip)
 }
 @_extern(c, "sg_uninit_attachments")
-func sg_uninit_attachments(_: Attachments)
+func sg_uninit_attachments(_: OpaquePointer?)
 
-func uninitAttachments(_ atts: Attachments) {
+func uninitAttachments(_ atts: OpaquePointer?) {
     return sg_uninit_attachments(atts)
 }
 @_extern(c, "sg_fail_buffer")
-func sg_fail_buffer(_: Buffer)
+func sg_fail_buffer(_: OpaquePointer?)
 
-func failBuffer(_ buf: Buffer) {
+func failBuffer(_ buf: OpaquePointer?) {
     return sg_fail_buffer(buf)
 }
 @_extern(c, "sg_fail_image")
-func sg_fail_image(_: Image)
+func sg_fail_image(_: OpaquePointer?)
 
-func failImage(_ img: Image) {
+func failImage(_ img: OpaquePointer?) {
     return sg_fail_image(img)
 }
 @_extern(c, "sg_fail_sampler")
-func sg_fail_sampler(_: Sampler)
+func sg_fail_sampler(_: OpaquePointer?)
 
-func failSampler(_ smp: Sampler) {
+func failSampler(_ smp: OpaquePointer?) {
     return sg_fail_sampler(smp)
 }
 @_extern(c, "sg_fail_shader")
-func sg_fail_shader(_: Shader)
+func sg_fail_shader(_: OpaquePointer?)
 
-func failShader(_ shd: Shader) {
+func failShader(_ shd: OpaquePointer?) {
     return sg_fail_shader(shd)
 }
 @_extern(c, "sg_fail_pipeline")
-func sg_fail_pipeline(_: Pipeline)
+func sg_fail_pipeline(_: OpaquePointer?)
 
-func failPipeline(_ pip: Pipeline) {
+func failPipeline(_ pip: OpaquePointer?) {
     return sg_fail_pipeline(pip)
 }
 @_extern(c, "sg_fail_attachments")
-func sg_fail_attachments(_: Attachments)
+func sg_fail_attachments(_: OpaquePointer?)
 
-func failAttachments(_ atts: Attachments) {
+func failAttachments(_ atts: OpaquePointer?) {
     return sg_fail_attachments(atts)
 }
 @_extern(c, "sg_enable_frame_stats")
@@ -1798,9 +1863,9 @@ func frameStatsEnabled() -> Bool {
     return sg_frame_stats_enabled()
 }
 @_extern(c, "sg_query_frame_stats")
-func sg_query_frame_stats() -> FrameStats
+func sg_query_frame_stats() -> OpaquePointer?
 
-func queryFrameStats() -> FrameStats {
+func queryFrameStats() -> OpaquePointer? {
     return sg_query_frame_stats()
 }
 struct D3d11BufferInfo {
@@ -1816,8 +1881,7 @@ struct D3d11SamplerInfo {
     var smp: UnsafeRawPointer? = nil
 }
 struct D3d11ShaderInfo {
-    var vs_cbufs: [UnsafeRawPointer?] = Array(repeating: nil, count: 4)
-    var fs_cbufs: [UnsafeRawPointer?] = Array(repeating: nil, count: 4)
+    var cbufs: [UnsafeRawPointer?] = Array(repeating: nil, count: 8)
     var vs: UnsafeRawPointer? = nil
     var fs: UnsafeRawPointer? = nil
 }
@@ -1844,10 +1908,10 @@ struct MtlSamplerInfo {
     var smp: UnsafeRawPointer? = nil
 }
 struct MtlShaderInfo {
-    var vs_lib: UnsafeRawPointer? = nil
-    var fs_lib: UnsafeRawPointer? = nil
-    var vs_func: UnsafeRawPointer? = nil
-    var fs_func: UnsafeRawPointer? = nil
+    var vertex_lib: UnsafeRawPointer? = nil
+    var fragment_lib: UnsafeRawPointer? = nil
+    var vertex_func: UnsafeRawPointer? = nil
+    var fragment_func: UnsafeRawPointer? = nil
 }
 struct MtlPipelineInfo {
     var rps: UnsafeRawPointer? = nil
@@ -1909,39 +1973,39 @@ func d3d11DeviceContext() -> UnsafeRawPointer? {
     return sg_d3d11_device_context()
 }
 @_extern(c, "sg_d3d11_query_buffer_info")
-func sg_d3d11_query_buffer_info(_: Buffer) -> D3d11BufferInfo
+func sg_d3d11_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
 
-func d3d11QueryBufferInfo(_ buf: Buffer) -> D3d11BufferInfo {
+func d3d11QueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_buffer_info(buf)
 }
 @_extern(c, "sg_d3d11_query_image_info")
-func sg_d3d11_query_image_info(_: Image) -> D3d11ImageInfo
+func sg_d3d11_query_image_info(_: OpaquePointer?) -> OpaquePointer?
 
-func d3d11QueryImageInfo(_ img: Image) -> D3d11ImageInfo {
+func d3d11QueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_image_info(img)
 }
 @_extern(c, "sg_d3d11_query_sampler_info")
-func sg_d3d11_query_sampler_info(_: Sampler) -> D3d11SamplerInfo
+func sg_d3d11_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
 
-func d3d11QuerySamplerInfo(_ smp: Sampler) -> D3d11SamplerInfo {
+func d3d11QuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_sampler_info(smp)
 }
 @_extern(c, "sg_d3d11_query_shader_info")
-func sg_d3d11_query_shader_info(_: Shader) -> D3d11ShaderInfo
+func sg_d3d11_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
 
-func d3d11QueryShaderInfo(_ shd: Shader) -> D3d11ShaderInfo {
+func d3d11QueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_shader_info(shd)
 }
 @_extern(c, "sg_d3d11_query_pipeline_info")
-func sg_d3d11_query_pipeline_info(_: Pipeline) -> D3d11PipelineInfo
+func sg_d3d11_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
 
-func d3d11QueryPipelineInfo(_ pip: Pipeline) -> D3d11PipelineInfo {
+func d3d11QueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_pipeline_info(pip)
 }
 @_extern(c, "sg_d3d11_query_attachments_info")
-func sg_d3d11_query_attachments_info(_: Attachments) -> D3d11AttachmentsInfo
+func sg_d3d11_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
 
-func d3d11QueryAttachmentsInfo(_ atts: Attachments) -> D3d11AttachmentsInfo {
+func d3d11QueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_attachments_info(atts)
 }
 @_extern(c, "sg_mtl_device")
@@ -1957,33 +2021,33 @@ func mtlRenderCommandEncoder() -> UnsafeRawPointer? {
     return sg_mtl_render_command_encoder()
 }
 @_extern(c, "sg_mtl_query_buffer_info")
-func sg_mtl_query_buffer_info(_: Buffer) -> MtlBufferInfo
+func sg_mtl_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
 
-func mtlQueryBufferInfo(_ buf: Buffer) -> MtlBufferInfo {
+func mtlQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_buffer_info(buf)
 }
 @_extern(c, "sg_mtl_query_image_info")
-func sg_mtl_query_image_info(_: Image) -> MtlImageInfo
+func sg_mtl_query_image_info(_: OpaquePointer?) -> OpaquePointer?
 
-func mtlQueryImageInfo(_ img: Image) -> MtlImageInfo {
+func mtlQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_image_info(img)
 }
 @_extern(c, "sg_mtl_query_sampler_info")
-func sg_mtl_query_sampler_info(_: Sampler) -> MtlSamplerInfo
+func sg_mtl_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
 
-func mtlQuerySamplerInfo(_ smp: Sampler) -> MtlSamplerInfo {
+func mtlQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_sampler_info(smp)
 }
 @_extern(c, "sg_mtl_query_shader_info")
-func sg_mtl_query_shader_info(_: Shader) -> MtlShaderInfo
+func sg_mtl_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
 
-func mtlQueryShaderInfo(_ shd: Shader) -> MtlShaderInfo {
+func mtlQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_shader_info(shd)
 }
 @_extern(c, "sg_mtl_query_pipeline_info")
-func sg_mtl_query_pipeline_info(_: Pipeline) -> MtlPipelineInfo
+func sg_mtl_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
 
-func mtlQueryPipelineInfo(_ pip: Pipeline) -> MtlPipelineInfo {
+func mtlQueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_pipeline_info(pip)
 }
 @_extern(c, "sg_wgpu_device")
@@ -2011,68 +2075,68 @@ func wgpuRenderPassEncoder() -> UnsafeRawPointer? {
     return sg_wgpu_render_pass_encoder()
 }
 @_extern(c, "sg_wgpu_query_buffer_info")
-func sg_wgpu_query_buffer_info(_: Buffer) -> WgpuBufferInfo
+func sg_wgpu_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
 
-func wgpuQueryBufferInfo(_ buf: Buffer) -> WgpuBufferInfo {
+func wgpuQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_buffer_info(buf)
 }
 @_extern(c, "sg_wgpu_query_image_info")
-func sg_wgpu_query_image_info(_: Image) -> WgpuImageInfo
+func sg_wgpu_query_image_info(_: OpaquePointer?) -> OpaquePointer?
 
-func wgpuQueryImageInfo(_ img: Image) -> WgpuImageInfo {
+func wgpuQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_image_info(img)
 }
 @_extern(c, "sg_wgpu_query_sampler_info")
-func sg_wgpu_query_sampler_info(_: Sampler) -> WgpuSamplerInfo
+func sg_wgpu_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
 
-func wgpuQuerySamplerInfo(_ smp: Sampler) -> WgpuSamplerInfo {
+func wgpuQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_sampler_info(smp)
 }
 @_extern(c, "sg_wgpu_query_shader_info")
-func sg_wgpu_query_shader_info(_: Shader) -> WgpuShaderInfo
+func sg_wgpu_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
 
-func wgpuQueryShaderInfo(_ shd: Shader) -> WgpuShaderInfo {
+func wgpuQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_shader_info(shd)
 }
 @_extern(c, "sg_wgpu_query_pipeline_info")
-func sg_wgpu_query_pipeline_info(_: Pipeline) -> WgpuPipelineInfo
+func sg_wgpu_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
 
-func wgpuQueryPipelineInfo(_ pip: Pipeline) -> WgpuPipelineInfo {
+func wgpuQueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_pipeline_info(pip)
 }
 @_extern(c, "sg_wgpu_query_attachments_info")
-func sg_wgpu_query_attachments_info(_: Attachments) -> WgpuAttachmentsInfo
+func sg_wgpu_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
 
-func wgpuQueryAttachmentsInfo(_ atts: Attachments) -> WgpuAttachmentsInfo {
+func wgpuQueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_attachments_info(atts)
 }
 @_extern(c, "sg_gl_query_buffer_info")
-func sg_gl_query_buffer_info(_: Buffer) -> GlBufferInfo
+func sg_gl_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
 
-func glQueryBufferInfo(_ buf: Buffer) -> GlBufferInfo {
+func glQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_buffer_info(buf)
 }
 @_extern(c, "sg_gl_query_image_info")
-func sg_gl_query_image_info(_: Image) -> GlImageInfo
+func sg_gl_query_image_info(_: OpaquePointer?) -> OpaquePointer?
 
-func glQueryImageInfo(_ img: Image) -> GlImageInfo {
+func glQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_image_info(img)
 }
 @_extern(c, "sg_gl_query_sampler_info")
-func sg_gl_query_sampler_info(_: Sampler) -> GlSamplerInfo
+func sg_gl_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
 
-func glQuerySamplerInfo(_ smp: Sampler) -> GlSamplerInfo {
+func glQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_sampler_info(smp)
 }
 @_extern(c, "sg_gl_query_shader_info")
-func sg_gl_query_shader_info(_: Shader) -> GlShaderInfo
+func sg_gl_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
 
-func glQueryShaderInfo(_ shd: Shader) -> GlShaderInfo {
+func glQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_shader_info(shd)
 }
 @_extern(c, "sg_gl_query_attachments_info")
-func sg_gl_query_attachments_info(_: Attachments) -> GlAttachmentsInfo
+func sg_gl_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
 
-func glQueryAttachmentsInfo(_ atts: Attachments) -> GlAttachmentsInfo {
+func glQueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_attachments_info(atts)
 }

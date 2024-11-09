@@ -1,6 +1,8 @@
 // machine generated, do not edit
 
-enum LogItem : UInt32 {
+
+@objc
+enum LogItem : CUnsignedInt {
     case OK
     case MALLOC_FAILED
     case MAKE_PIPELINE_FAILED
@@ -36,7 +38,7 @@ struct ContextDesc {
     var sample_count: CInt = 0
 }
 struct Allocator {
-    var alloc_fn: (@convention(c) (UInt, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
+    var alloc_fn: (@convention(c) (Int, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
     var free_fn: (@convention(c) (UnsafeMutableRawPointer?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
@@ -56,7 +58,7 @@ struct Desc {
 func sgl_setup(_: UnsafeRawPointer?)
 
 func setup(_ desc: UnsafePointer<Desc>?) {
-    return sgl_setup(desc)
+    return sgl_setup(UnsafePointer(desc))
 }
 @_extern(c, "sgl_shutdown")
 func sgl_shutdown()
@@ -77,45 +79,45 @@ func asDegrees(_ rad: Float) -> Float {
     return sgl_deg(rad)
 }
 @_extern(c, "sgl_error")
-func sgl_error() -> Error
+func sgl_error() -> OpaquePointer?
 
-func getError() -> Error {
+func getError() -> OpaquePointer? {
     return sgl_error()
 }
 @_extern(c, "sgl_context_error")
-func sgl_context_error(_: Context) -> Error
+func sgl_context_error(_: OpaquePointer?) -> OpaquePointer?
 
-func contextError(_ ctx: Context) -> Error {
+func contextError(_ ctx: OpaquePointer?) -> OpaquePointer? {
     return sgl_context_error(ctx)
 }
 @_extern(c, "sgl_make_context")
-func sgl_make_context(_: UnsafeRawPointer?) -> Context
+func sgl_make_context(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makeContext(_ desc: UnsafePointer<ContextDesc>?) -> Context {
-    return sgl_make_context(desc)
+func makeContext(_ desc: UnsafePointer<ContextDesc>?) -> OpaquePointer? {
+    return sgl_make_context(UnsafePointer(desc))
 }
 @_extern(c, "sgl_destroy_context")
-func sgl_destroy_context(_: Context)
+func sgl_destroy_context(_: OpaquePointer?)
 
-func destroyContext(_ ctx: Context) {
+func destroyContext(_ ctx: OpaquePointer?) {
     return sgl_destroy_context(ctx)
 }
 @_extern(c, "sgl_set_context")
-func sgl_set_context(_: Context)
+func sgl_set_context(_: OpaquePointer?)
 
-func setContext(_ ctx: Context) {
+func setContext(_ ctx: OpaquePointer?) {
     return sgl_set_context(ctx)
 }
 @_extern(c, "sgl_get_context")
-func sgl_get_context() -> Context
+func sgl_get_context() -> OpaquePointer?
 
-func getContext() -> Context {
+func getContext() -> OpaquePointer? {
     return sgl_get_context()
 }
 @_extern(c, "sgl_default_context")
-func sgl_default_context() -> Context
+func sgl_default_context() -> OpaquePointer?
 
-func defaultContext() -> Context {
+func defaultContext() -> OpaquePointer? {
     return sgl_default_context()
 }
 @_extern(c, "sgl_num_vertices")
@@ -137,9 +139,9 @@ func draw() {
     return sgl_draw()
 }
 @_extern(c, "sgl_context_draw")
-func sgl_context_draw(_: Context)
+func sgl_context_draw(_: OpaquePointer?)
 
-func contextDraw(_ ctx: Context) {
+func contextDraw(_ ctx: OpaquePointer?) {
     return sgl_context_draw(ctx)
 }
 @_extern(c, "sgl_draw_layer")
@@ -149,27 +151,27 @@ func drawLayer(_ layer_id: CInt) {
     return sgl_draw_layer(layer_id)
 }
 @_extern(c, "sgl_context_draw_layer")
-func sgl_context_draw_layer(_: Context, _: CInt)
+func sgl_context_draw_layer(_: OpaquePointer?, _: CInt)
 
-func contextDrawLayer(_ ctx: Context, _ layer_id: CInt) {
+func contextDrawLayer(_ ctx: OpaquePointer?, _ layer_id: CInt) {
     return sgl_context_draw_layer(ctx, layer_id)
 }
 @_extern(c, "sgl_make_pipeline")
-func sgl_make_pipeline(_: UnsafeRawPointer?) -> Pipeline
+func sgl_make_pipeline(_: UnsafeRawPointer?) -> OpaquePointer?
 
-func makePipeline(_ desc: UnsafePointer<sg.PipelineDesc>?) -> Pipeline {
-    return sgl_make_pipeline(desc)
+func makePipeline(_ desc: UnsafePointer<sg.PipelineDesc>?) -> OpaquePointer? {
+    return sgl_make_pipeline(UnsafePointer(desc))
 }
 @_extern(c, "sgl_context_make_pipeline")
-func sgl_context_make_pipeline(_: Context, _: UnsafeRawPointer?) -> Pipeline
+func sgl_context_make_pipeline(_: OpaquePointer?, _: UnsafeRawPointer?) -> OpaquePointer?
 
-func contextMakePipeline(_ ctx: Context, _ desc: UnsafePointer<sg.PipelineDesc>?) -> Pipeline {
-    return sgl_context_make_pipeline(ctx, desc)
+func contextMakePipeline(_ ctx: OpaquePointer?, _ desc: UnsafePointer<sg.PipelineDesc>?) -> OpaquePointer? {
+    return sgl_context_make_pipeline(ctx, UnsafePointer(desc))
 }
 @_extern(c, "sgl_destroy_pipeline")
-func sgl_destroy_pipeline(_: Pipeline)
+func sgl_destroy_pipeline(_: OpaquePointer?)
 
-func destroyPipeline(_ pip: Pipeline) {
+func destroyPipeline(_ pip: OpaquePointer?) {
     return sgl_destroy_pipeline(pip)
 }
 @_extern(c, "sgl_defaults")
@@ -215,9 +217,9 @@ func disableTexture() {
     return sgl_disable_texture()
 }
 @_extern(c, "sgl_texture")
-func sgl_texture(_: sg.Image, _: sg.Sampler)
+func sgl_texture(_: OpaquePointer?, _: OpaquePointer?)
 
-func texture(_ img: sg.Image, _ smp: sg.Sampler) {
+func texture(_ img: OpaquePointer?, _ smp: OpaquePointer?) {
     return sgl_texture(img, smp)
 }
 @_extern(c, "sgl_layer")
@@ -233,9 +235,9 @@ func loadDefaultPipeline() {
     return sgl_load_default_pipeline()
 }
 @_extern(c, "sgl_load_pipeline")
-func sgl_load_pipeline(_: Pipeline)
+func sgl_load_pipeline(_: OpaquePointer?)
 
-func loadPipeline(_ pip: Pipeline) {
+func loadPipeline(_ pip: OpaquePointer?) {
     return sgl_load_pipeline(pip)
 }
 @_extern(c, "sgl_push_pipeline")

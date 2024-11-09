@@ -5,7 +5,6 @@
 #include "sokol_fetch.h"
 #include "sokol_gl.h"
 #include "sokol_glue.h"
-#include "sokol_imgui.h"
 #include "sokol_log.h"
 #include "sokol_shape.h"
 #include "sokol_time.h"

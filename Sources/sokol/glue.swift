@@ -1,14 +1,14 @@
 // machine generated, do not edit
 
 @_extern(c, "sglue_environment")
-func sglue_environment() -> sg.Environment
+func sglue_environment() -> OpaquePointer?
 
-func environment() -> sg.Environment {
+func environment() -> OpaquePointer? {
     return sglue_environment()
 }
 @_extern(c, "sglue_swapchain")
-func sglue_swapchain() -> sg.Swapchain
+func sglue_swapchain() -> OpaquePointer?
 
-func swapchain() -> sg.Swapchain {
+func swapchain() -> OpaquePointer? {
     return sglue_swapchain()
 }
