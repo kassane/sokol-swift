@@ -4,7 +4,6 @@ let max_touchpoints = 8
 let max_mousebuttons = 3
 let max_keycodes = 512
 let max_iconimages = 8
-
 @objc
 enum EventType : CUnsignedInt {
     case INVALID
@@ -34,7 +33,6 @@ enum EventType : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum Keycode : CUnsignedInt {
     case INVALID = 0
@@ -159,7 +157,6 @@ enum Keycode : CUnsignedInt {
     case RIGHT_SUPER = 347
     case MENU = 348
 }
-
 @objc
 enum AndroidTooltype : CUnsignedInt {
     case UNKNOWN = 0
@@ -167,14 +164,13 @@ enum AndroidTooltype : CUnsignedInt {
     case STYLUS = 2
     case MOUSE = 3
 }
-struct Touchpoint {
+private struct Touchpoint {
     var identifier: UInt = 0
     var pos_x: Float = 0.0
     var pos_y: Float = 0.0
     var android_tooltype: AndroidTooltype = .UNKNOWN
     var changed: Bool = false
 }
-
 @objc
 enum Mousebutton : CUnsignedInt {
     case LEFT = 0
@@ -189,7 +185,7 @@ let modifier_super = 8
 let modifier_lmb = 256
 let modifier_rmb = 512
 let modifier_mmb = 1024
-struct Event {
+private struct Event {
     var frame_count: UInt64 = 0
     var type: EventType = .INVALID
     var key_code: Keycode = .INVALID
@@ -210,25 +206,24 @@ struct Event {
     var framebuffer_width: CInt = 0
     var framebuffer_height: CInt = 0
 }
-struct Range {
+private struct Range {
     var ptr: UnsafeRawPointer? = nil
     var size: Int = 0
 }
-struct ImageDesc {
+private struct ImageDesc {
     var width: CInt = 0
     var height: CInt = 0
     var pixels: Range = Range()
 }
-struct IconDesc {
+private struct IconDesc {
     var sokol_default: Bool = false
     var images: [ImageDesc] = Array(repeating: ImageDesc(), count: 8)
 }
-struct Allocator {
+private struct Allocator {
     var alloc_fn: (@convention(c) (Int, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
     var free_fn: (@convention(c) (UnsafeMutableRawPointer?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
-
 @objc
 enum LogItem : CUnsignedInt {
     case OK
@@ -331,11 +326,11 @@ enum LogItem : CUnsignedInt {
     case DROPPED_FILE_PATH_TOO_LONG
     case CLIPBOARD_STRING_TOO_BIG
 }
-struct Logger {
+private struct Logger {
     var fn: (@convention(c) (UnsafePointer<CChar>?, UInt32, UInt32, UnsafePointer<CChar>?, UInt32, UnsafePointer<CChar>?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
-struct Desc {
+private struct Desc {
     var init_cb: (@convention(c) () -> Void)? = nil
     var frame_cb: (@convention(c) () -> Void)? = nil
     var cleanup_cb: (@convention(c) () -> Void)? = nil
@@ -380,14 +375,13 @@ struct Desc {
     var html5_emsc_set_main_loop_simulate_infinite_loop: Bool = false
     var ios_keyboard_resizes_canvas: Bool = false
 }
-
 @objc
 enum Html5FetchError : CUnsignedInt {
     case FETCH_ERROR_NO_ERROR
     case FETCH_ERROR_BUFFER_TOO_SMALL
     case FETCH_ERROR_OTHER
 }
-struct Html5FetchResponse {
+private struct Html5FetchResponse {
     var succeeded: Bool = false
     var error_code: Html5FetchError = .FETCH_ERROR_NO_ERROR
     var file_index: CInt = 0
@@ -395,13 +389,12 @@ struct Html5FetchResponse {
     var buffer: Range = Range()
     var user_data: UnsafeMutableRawPointer? = nil
 }
-struct Html5FetchRequest {
+private struct Html5FetchRequest {
     var dropped_file_index: CInt = 0
     var callback: (@convention(c) (UnsafeRawPointer?) -> Void)? = nil
     var buffer: Range = Range()
     var user_data: UnsafeMutableRawPointer? = nil
 }
-
 @objc
 enum MouseCursor : CUnsignedInt {
     case DEFAULT = 0
@@ -419,367 +412,306 @@ enum MouseCursor : CUnsignedInt {
 }
 @_extern(c, "sapp_isvalid")
 func sapp_isvalid() -> Bool
-
-func isvalid() -> Bool {
+private func isvalid() -> Bool {
     return sapp_isvalid()
 }
 @_extern(c, "sapp_width")
 func sapp_width() -> CInt
-
-func width() -> CInt {
+private func width() -> CInt {
     return sapp_width()
 }
 @_extern(c, "sapp_widthf")
 func sapp_widthf() -> Float
-
-func widthf() -> Float {
+private func widthf() -> Float {
     return sapp_widthf()
 }
 @_extern(c, "sapp_height")
 func sapp_height() -> CInt
-
-func height() -> CInt {
+private func height() -> CInt {
     return sapp_height()
 }
 @_extern(c, "sapp_heightf")
 func sapp_heightf() -> Float
-
-func heightf() -> Float {
+private func heightf() -> Float {
     return sapp_heightf()
 }
 @_extern(c, "sapp_color_format")
 func sapp_color_format() -> CInt
-
-func colorFormat() -> CInt {
+private func colorFormat() -> CInt {
     return sapp_color_format()
 }
 @_extern(c, "sapp_depth_format")
 func sapp_depth_format() -> CInt
-
-func depthFormat() -> CInt {
+private func depthFormat() -> CInt {
     return sapp_depth_format()
 }
 @_extern(c, "sapp_sample_count")
 func sapp_sample_count() -> CInt
-
-func sampleCount() -> CInt {
+private func sampleCount() -> CInt {
     return sapp_sample_count()
 }
 @_extern(c, "sapp_high_dpi")
 func sapp_high_dpi() -> Bool
-
-func highDpi() -> Bool {
+private func highDpi() -> Bool {
     return sapp_high_dpi()
 }
 @_extern(c, "sapp_dpi_scale")
 func sapp_dpi_scale() -> Float
-
-func dpiScale() -> Float {
+private func dpiScale() -> Float {
     return sapp_dpi_scale()
 }
 @_extern(c, "sapp_show_keyboard")
 func sapp_show_keyboard(_: Bool)
-
-func showKeyboard(_ show: Bool) {
+private func showKeyboard(_ show: Bool) {
     return sapp_show_keyboard(show)
 }
 @_extern(c, "sapp_keyboard_shown")
 func sapp_keyboard_shown() -> Bool
-
-func keyboardShown() -> Bool {
+private func keyboardShown() -> Bool {
     return sapp_keyboard_shown()
 }
 @_extern(c, "sapp_is_fullscreen")
 func sapp_is_fullscreen() -> Bool
-
-func isFullscreen() -> Bool {
+private func isFullscreen() -> Bool {
     return sapp_is_fullscreen()
 }
 @_extern(c, "sapp_toggle_fullscreen")
 func sapp_toggle_fullscreen()
-
-func toggleFullscreen() {
+private func toggleFullscreen() {
     return sapp_toggle_fullscreen()
 }
 @_extern(c, "sapp_show_mouse")
 func sapp_show_mouse(_: Bool)
-
-func showMouse(_ show: Bool) {
+private func showMouse(_ show: Bool) {
     return sapp_show_mouse(show)
 }
 @_extern(c, "sapp_mouse_shown")
 func sapp_mouse_shown() -> Bool
-
-func mouseShown() -> Bool {
+private func mouseShown() -> Bool {
     return sapp_mouse_shown()
 }
 @_extern(c, "sapp_lock_mouse")
 func sapp_lock_mouse(_: Bool)
-
-func lockMouse(_ lock: Bool) {
+private func lockMouse(_ lock: Bool) {
     return sapp_lock_mouse(lock)
 }
 @_extern(c, "sapp_mouse_locked")
 func sapp_mouse_locked() -> Bool
-
-func mouseLocked() -> Bool {
+private func mouseLocked() -> Bool {
     return sapp_mouse_locked()
 }
 @_extern(c, "sapp_set_mouse_cursor")
 func sapp_set_mouse_cursor(_: MouseCursor)
-
-func setMouseCursor(_ cursor: MouseCursor) {
+private func setMouseCursor(_ cursor: MouseCursor) {
     return sapp_set_mouse_cursor(cursor)
 }
 @_extern(c, "sapp_get_mouse_cursor")
 func sapp_get_mouse_cursor() -> MouseCursor
-
-func getMouseCursor() -> MouseCursor {
+private func getMouseCursor() -> MouseCursor {
     return sapp_get_mouse_cursor()
 }
 @_extern(c, "sapp_userdata")
 func sapp_userdata() -> UnsafeMutableRawPointer?
-
-func userdata() -> UnsafeMutableRawPointer? {
+private func userdata() -> UnsafeMutableRawPointer? {
     return sapp_userdata()
 }
 @_extern(c, "sapp_query_desc")
 func sapp_query_desc() -> OpaquePointer?
-
-func queryDesc() -> OpaquePointer? {
+private func queryDesc() -> OpaquePointer? {
     return sapp_query_desc()
 }
 @_extern(c, "sapp_request_quit")
 func sapp_request_quit()
-
-func requestQuit() {
+private func requestQuit() {
     return sapp_request_quit()
 }
 @_extern(c, "sapp_cancel_quit")
 func sapp_cancel_quit()
-
-func cancelQuit() {
+private func cancelQuit() {
     return sapp_cancel_quit()
 }
 @_extern(c, "sapp_quit")
 func sapp_quit()
-
-func quit() {
+private func quit() {
     return sapp_quit()
 }
 @_extern(c, "sapp_consume_event")
 func sapp_consume_event()
-
-func consumeEvent() {
+private func consumeEvent() {
     return sapp_consume_event()
 }
 @_extern(c, "sapp_frame_count")
 func sapp_frame_count() -> UInt64
-
-func frameCount() -> UInt64 {
+private func frameCount() -> UInt64 {
     return sapp_frame_count()
 }
 @_extern(c, "sapp_frame_duration")
 func sapp_frame_duration() -> Double
-
-func frameDuration() -> Double {
+private func frameDuration() -> Double {
     return sapp_frame_duration()
 }
 @_extern(c, "sapp_set_clipboard_string")
 func sapp_set_clipboard_string(_: UnsafePointer<CChar>?)
-
-func setClipboardString(_ str: UnsafePointer<CChar>?) {
+private func setClipboardString(_ str: UnsafePointer<CChar>?) {
     return sapp_set_clipboard_string(str)
 }
 @_extern(c, "sapp_get_clipboard_string")
 func sapp_get_clipboard_string() -> UnsafePointer<CChar>?
-
-func getClipboardString() -> UnsafePointer<CChar>? {
+private func getClipboardString() -> UnsafePointer<CChar>? {
     return sapp_get_clipboard_string()
 }
 @_extern(c, "sapp_set_window_title")
 func sapp_set_window_title(_: UnsafePointer<CChar>?)
-
-func setWindowTitle(_ str: UnsafePointer<CChar>?) {
+private func setWindowTitle(_ str: UnsafePointer<CChar>?) {
     return sapp_set_window_title(str)
 }
 @_extern(c, "sapp_set_icon")
 func sapp_set_icon(_: UnsafeRawPointer?)
-
-func setIcon(_ icon_desc: UnsafePointer<IconDesc>?) {
+private func setIcon(_ icon_desc: UnsafePointer<IconDesc>?) {
     return sapp_set_icon(UnsafePointer(icon_desc))
 }
 @_extern(c, "sapp_get_num_dropped_files")
 func sapp_get_num_dropped_files() -> CInt
-
-func getNumDroppedFiles() -> CInt {
+private func getNumDroppedFiles() -> CInt {
     return sapp_get_num_dropped_files()
 }
 @_extern(c, "sapp_get_dropped_file_path")
 func sapp_get_dropped_file_path(_: CInt) -> UnsafePointer<CChar>?
-
-func getDroppedFilePath(_ index: CInt) -> UnsafePointer<CChar>? {
+private func getDroppedFilePath(_ index: CInt) -> UnsafePointer<CChar>? {
     return sapp_get_dropped_file_path(index)
 }
 @_extern(c, "sapp_run")
 func sapp_run(_: UnsafeRawPointer?)
-
-func run(_ desc: UnsafePointer<Desc>?) {
+private func run(_ desc: UnsafePointer<Desc>?) {
     return sapp_run(UnsafePointer(desc))
 }
 @_extern(c, "sapp_egl_get_display")
 func sapp_egl_get_display() -> UnsafeRawPointer?
-
-func eglGetDisplay() -> UnsafeRawPointer? {
+private func eglGetDisplay() -> UnsafeRawPointer? {
     return sapp_egl_get_display()
 }
 @_extern(c, "sapp_egl_get_context")
 func sapp_egl_get_context() -> UnsafeRawPointer?
-
-func eglGetContext() -> UnsafeRawPointer? {
+private func eglGetContext() -> UnsafeRawPointer? {
     return sapp_egl_get_context()
 }
 @_extern(c, "sapp_html5_ask_leave_site")
 func sapp_html5_ask_leave_site(_: Bool)
-
-func html5AskLeaveSite(_ ask: Bool) {
+private func html5AskLeaveSite(_ ask: Bool) {
     return sapp_html5_ask_leave_site(ask)
 }
 @_extern(c, "sapp_html5_get_dropped_file_size")
 func sapp_html5_get_dropped_file_size(_: CInt) -> UInt32
-
-func html5GetDroppedFileSize(_ index: CInt) -> UInt32 {
+private func html5GetDroppedFileSize(_ index: CInt) -> UInt32 {
     return sapp_html5_get_dropped_file_size(index)
 }
 @_extern(c, "sapp_html5_fetch_dropped_file")
 func sapp_html5_fetch_dropped_file(_: UnsafeRawPointer?)
-
-func html5FetchDroppedFile(_ request: UnsafePointer<Html5FetchRequest>?) {
+private func html5FetchDroppedFile(_ request: UnsafePointer<Html5FetchRequest>?) {
     return sapp_html5_fetch_dropped_file(UnsafePointer(request))
 }
 @_extern(c, "sapp_metal_get_device")
 func sapp_metal_get_device() -> UnsafeRawPointer?
-
-func metalGetDevice() -> UnsafeRawPointer? {
+private func metalGetDevice() -> UnsafeRawPointer? {
     return sapp_metal_get_device()
 }
 @_extern(c, "sapp_metal_get_current_drawable")
 func sapp_metal_get_current_drawable() -> UnsafeRawPointer?
-
-func metalGetCurrentDrawable() -> UnsafeRawPointer? {
+private func metalGetCurrentDrawable() -> UnsafeRawPointer? {
     return sapp_metal_get_current_drawable()
 }
 @_extern(c, "sapp_metal_get_depth_stencil_texture")
 func sapp_metal_get_depth_stencil_texture() -> UnsafeRawPointer?
-
-func metalGetDepthStencilTexture() -> UnsafeRawPointer? {
+private func metalGetDepthStencilTexture() -> UnsafeRawPointer? {
     return sapp_metal_get_depth_stencil_texture()
 }
 @_extern(c, "sapp_metal_get_msaa_color_texture")
 func sapp_metal_get_msaa_color_texture() -> UnsafeRawPointer?
-
-func metalGetMsaaColorTexture() -> UnsafeRawPointer? {
+private func metalGetMsaaColorTexture() -> UnsafeRawPointer? {
     return sapp_metal_get_msaa_color_texture()
 }
 @_extern(c, "sapp_macos_get_window")
 func sapp_macos_get_window() -> UnsafeRawPointer?
-
-func macosGetWindow() -> UnsafeRawPointer? {
+private func macosGetWindow() -> UnsafeRawPointer? {
     return sapp_macos_get_window()
 }
 @_extern(c, "sapp_ios_get_window")
 func sapp_ios_get_window() -> UnsafeRawPointer?
-
-func iosGetWindow() -> UnsafeRawPointer? {
+private func iosGetWindow() -> UnsafeRawPointer? {
     return sapp_ios_get_window()
 }
 @_extern(c, "sapp_d3d11_get_device")
 func sapp_d3d11_get_device() -> UnsafeRawPointer?
-
-func d3d11GetDevice() -> UnsafeRawPointer? {
+private func d3d11GetDevice() -> UnsafeRawPointer? {
     return sapp_d3d11_get_device()
 }
 @_extern(c, "sapp_d3d11_get_device_context")
 func sapp_d3d11_get_device_context() -> UnsafeRawPointer?
-
-func d3d11GetDeviceContext() -> UnsafeRawPointer? {
+private func d3d11GetDeviceContext() -> UnsafeRawPointer? {
     return sapp_d3d11_get_device_context()
 }
 @_extern(c, "sapp_d3d11_get_swap_chain")
 func sapp_d3d11_get_swap_chain() -> UnsafeRawPointer?
-
-func d3d11GetSwapChain() -> UnsafeRawPointer? {
+private func d3d11GetSwapChain() -> UnsafeRawPointer? {
     return sapp_d3d11_get_swap_chain()
 }
 @_extern(c, "sapp_d3d11_get_render_view")
 func sapp_d3d11_get_render_view() -> UnsafeRawPointer?
-
-func d3d11GetRenderView() -> UnsafeRawPointer? {
+private func d3d11GetRenderView() -> UnsafeRawPointer? {
     return sapp_d3d11_get_render_view()
 }
 @_extern(c, "sapp_d3d11_get_resolve_view")
 func sapp_d3d11_get_resolve_view() -> UnsafeRawPointer?
-
-func d3d11GetResolveView() -> UnsafeRawPointer? {
+private func d3d11GetResolveView() -> UnsafeRawPointer? {
     return sapp_d3d11_get_resolve_view()
 }
 @_extern(c, "sapp_d3d11_get_depth_stencil_view")
 func sapp_d3d11_get_depth_stencil_view() -> UnsafeRawPointer?
-
-func d3d11GetDepthStencilView() -> UnsafeRawPointer? {
+private func d3d11GetDepthStencilView() -> UnsafeRawPointer? {
     return sapp_d3d11_get_depth_stencil_view()
 }
 @_extern(c, "sapp_win32_get_hwnd")
 func sapp_win32_get_hwnd() -> UnsafeRawPointer?
-
-func win32GetHwnd() -> UnsafeRawPointer? {
+private func win32GetHwnd() -> UnsafeRawPointer? {
     return sapp_win32_get_hwnd()
 }
 @_extern(c, "sapp_wgpu_get_device")
 func sapp_wgpu_get_device() -> UnsafeRawPointer?
-
-func wgpuGetDevice() -> UnsafeRawPointer? {
+private func wgpuGetDevice() -> UnsafeRawPointer? {
     return sapp_wgpu_get_device()
 }
 @_extern(c, "sapp_wgpu_get_render_view")
 func sapp_wgpu_get_render_view() -> UnsafeRawPointer?
-
-func wgpuGetRenderView() -> UnsafeRawPointer? {
+private func wgpuGetRenderView() -> UnsafeRawPointer? {
     return sapp_wgpu_get_render_view()
 }
 @_extern(c, "sapp_wgpu_get_resolve_view")
 func sapp_wgpu_get_resolve_view() -> UnsafeRawPointer?
-
-func wgpuGetResolveView() -> UnsafeRawPointer? {
+private func wgpuGetResolveView() -> UnsafeRawPointer? {
     return sapp_wgpu_get_resolve_view()
 }
 @_extern(c, "sapp_wgpu_get_depth_stencil_view")
 func sapp_wgpu_get_depth_stencil_view() -> UnsafeRawPointer?
-
-func wgpuGetDepthStencilView() -> UnsafeRawPointer? {
+private func wgpuGetDepthStencilView() -> UnsafeRawPointer? {
     return sapp_wgpu_get_depth_stencil_view()
 }
 @_extern(c, "sapp_gl_get_framebuffer")
 func sapp_gl_get_framebuffer() -> UInt32
-
-func glGetFramebuffer() -> UInt32 {
+private func glGetFramebuffer() -> UInt32 {
     return sapp_gl_get_framebuffer()
 }
 @_extern(c, "sapp_gl_get_major_version")
 func sapp_gl_get_major_version() -> CInt
-
-func glGetMajorVersion() -> CInt {
+private func glGetMajorVersion() -> CInt {
     return sapp_gl_get_major_version()
 }
 @_extern(c, "sapp_gl_get_minor_version")
 func sapp_gl_get_minor_version() -> CInt
-
-func glGetMinorVersion() -> CInt {
+private func glGetMinorVersion() -> CInt {
     return sapp_gl_get_minor_version()
 }
 @_extern(c, "sapp_android_get_native_activity")
 func sapp_android_get_native_activity() -> UnsafeRawPointer?
-
-func androidGetNativeActivity() -> UnsafeRawPointer? {
+private func androidGetNativeActivity() -> UnsafeRawPointer? {
     return sapp_android_get_native_activity()
 }

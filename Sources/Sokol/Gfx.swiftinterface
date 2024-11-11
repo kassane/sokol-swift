@@ -1,24 +1,24 @@
 // machine generated, do not edit
 
-struct Buffer {
+private struct Buffer {
     var id: UInt32 = 0
 }
-struct Image {
+private struct Image {
     var id: UInt32 = 0
 }
-struct Sampler {
+private struct Sampler {
     var id: UInt32 = 0
 }
-struct Shader {
+private struct Shader {
     var id: UInt32 = 0
 }
-struct Pipeline {
+private struct Pipeline {
     var id: UInt32 = 0
 }
-struct Attachments {
+private struct Attachments {
     var id: UInt32 = 0
 }
-struct Range {
+private struct Range {
     var ptr: UnsafeRawPointer? = nil
     var size: Int = 0
 }
@@ -35,13 +35,12 @@ let max_image_bindslots = 16
 let max_sampler_bindslots = 16
 let max_storagebuffer_bindslots = 8
 let max_image_sampler_pairs = 16
-struct Color {
+private struct Color {
     var r: Float = 0.0
     var g: Float = 0.0
     var b: Float = 0.0
     var a: Float = 0.0
 }
-
 @objc
 enum Backend : CUnsignedInt {
     case GLCORE
@@ -53,7 +52,6 @@ enum Backend : CUnsignedInt {
     case WGPU
     case DUMMY
 }
-
 @objc
 enum PixelFormat : CUnsignedInt {
     case DEFAULT
@@ -131,7 +129,7 @@ enum PixelFormat : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-struct PixelformatInfo {
+private struct PixelformatInfo {
     var sample: Bool = false
     var filter: Bool = false
     var render: Bool = false
@@ -141,14 +139,14 @@ struct PixelformatInfo {
     var compressed: Bool = false
     var bytes_per_pixel: CInt = 0
 }
-struct Features {
+private struct Features {
     var origin_top_left: Bool = false
     var image_clamp_to_border: Bool = false
     var mrt_independent_blend_state: Bool = false
     var mrt_independent_write_mask: Bool = false
     var storage_buffer: Bool = false
 }
-struct Limits {
+private struct Limits {
     var max_image_size_2d: CInt = 0
     var max_image_size_cube: CInt = 0
     var max_image_size_3d: CInt = 0
@@ -158,7 +156,6 @@ struct Limits {
     var gl_max_vertex_uniform_components: CInt = 0
     var gl_max_combined_texture_image_units: CInt = 0
 }
-
 @objc
 enum ResourceState : CUnsignedInt {
     case INITIAL
@@ -168,7 +165,6 @@ enum ResourceState : CUnsignedInt {
     case INVALID
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum Usage : CUnsignedInt {
     case DEFAULT
@@ -178,7 +174,6 @@ enum Usage : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum BufferType : CUnsignedInt {
     case DEFAULT
@@ -188,7 +183,6 @@ enum BufferType : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum IndexType : CUnsignedInt {
     case DEFAULT
@@ -198,7 +192,6 @@ enum IndexType : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum ImageType : CUnsignedInt {
     case DEFAULT
@@ -209,7 +202,6 @@ enum ImageType : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum ImageSampleType : CUnsignedInt {
     case DEFAULT
@@ -221,7 +213,6 @@ enum ImageSampleType : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum SamplerType : CUnsignedInt {
     case DEFAULT
@@ -231,7 +222,6 @@ enum SamplerType : CUnsignedInt {
     case NUM
     case FORCE_U32
 }
-
 @objc
 enum CubeFace : CUnsignedInt {
     case POS_X
@@ -243,7 +233,6 @@ enum CubeFace : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum PrimitiveType : CUnsignedInt {
     case DEFAULT
@@ -255,7 +244,6 @@ enum PrimitiveType : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum Filter : CUnsignedInt {
     case DEFAULT
@@ -264,7 +252,6 @@ enum Filter : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum Wrap : CUnsignedInt {
     case DEFAULT
@@ -275,7 +262,6 @@ enum Wrap : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum BorderColor : CUnsignedInt {
     case DEFAULT
@@ -285,7 +271,6 @@ enum BorderColor : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum VertexFormat : CUnsignedInt {
     case INVALID
@@ -309,7 +294,6 @@ enum VertexFormat : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum VertexStep : CUnsignedInt {
     case DEFAULT
@@ -318,7 +302,6 @@ enum VertexStep : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum UniformType : CUnsignedInt {
     case INVALID
@@ -334,7 +317,6 @@ enum UniformType : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum UniformLayout : CUnsignedInt {
     case DEFAULT
@@ -343,7 +325,6 @@ enum UniformLayout : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum CullMode : CUnsignedInt {
     case DEFAULT
@@ -353,7 +334,6 @@ enum CullMode : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum FaceWinding : CUnsignedInt {
     case DEFAULT
@@ -362,7 +342,6 @@ enum FaceWinding : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum CompareFunc : CUnsignedInt {
     case DEFAULT
@@ -377,7 +356,6 @@ enum CompareFunc : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum StencilOp : CUnsignedInt {
     case DEFAULT
@@ -392,7 +370,6 @@ enum StencilOp : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum BlendFactor : CUnsignedInt {
     case DEFAULT
@@ -414,7 +391,6 @@ enum BlendFactor : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum BlendOp : CUnsignedInt {
     case DEFAULT
@@ -424,7 +400,6 @@ enum BlendOp : CUnsignedInt {
     case NUM
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum ColorMask : CUnsignedInt {
     case DEFAULT = 0
@@ -446,7 +421,6 @@ enum ColorMask : CUnsignedInt {
     case RGBA = 15
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum LoadAction : CUnsignedInt {
     case DEFAULT
@@ -455,7 +429,6 @@ enum LoadAction : CUnsignedInt {
     case DONTCARE
     case FORCE_U32 = 2147483647
 }
-
 @objc
 enum StoreAction : CUnsignedInt {
     case DEFAULT
@@ -463,45 +436,45 @@ enum StoreAction : CUnsignedInt {
     case DONTCARE
     case FORCE_U32 = 2147483647
 }
-struct ColorAttachmentAction {
+private struct ColorAttachmentAction {
     var load_action: LoadAction = .DEFAULT
     var store_action: StoreAction = .DEFAULT
     var clear_value: Color = Color()
 }
-struct DepthAttachmentAction {
+private struct DepthAttachmentAction {
     var load_action: LoadAction = .DEFAULT
     var store_action: StoreAction = .DEFAULT
     var clear_value: Float = 0.0
 }
-struct StencilAttachmentAction {
+private struct StencilAttachmentAction {
     var load_action: LoadAction = .DEFAULT
     var store_action: StoreAction = .DEFAULT
     var clear_value: UInt8 = 0
 }
-struct PassAction {
+private struct PassAction {
     var colors: [ColorAttachmentAction] = Array(repeating: ColorAttachmentAction(), count: 4)
     var depth: DepthAttachmentAction = DepthAttachmentAction()
     var stencil: StencilAttachmentAction = StencilAttachmentAction()
 }
-struct MetalSwapchain {
+private struct MetalSwapchain {
     var current_drawable: UnsafeRawPointer? = nil
     var depth_stencil_texture: UnsafeRawPointer? = nil
     var msaa_color_texture: UnsafeRawPointer? = nil
 }
-struct D3d11Swapchain {
+private struct D3d11Swapchain {
     var render_view: UnsafeRawPointer? = nil
     var resolve_view: UnsafeRawPointer? = nil
     var depth_stencil_view: UnsafeRawPointer? = nil
 }
-struct WgpuSwapchain {
+private struct WgpuSwapchain {
     var render_view: UnsafeRawPointer? = nil
     var resolve_view: UnsafeRawPointer? = nil
     var depth_stencil_view: UnsafeRawPointer? = nil
 }
-struct GlSwapchain {
+private struct GlSwapchain {
     var framebuffer: UInt32 = 0
 }
-struct Swapchain {
+private struct Swapchain {
     var width: CInt = 0
     var height: CInt = 0
     var sample_count: CInt = 0
@@ -512,7 +485,7 @@ struct Swapchain {
     var wgpu: WgpuSwapchain = WgpuSwapchain()
     var gl: GlSwapchain = GlSwapchain()
 }
-struct Pass {
+private struct Pass {
     var _start_canary: UInt32 = 0
     var action: PassAction = PassAction()
     var attachments: Attachments = Attachments()
@@ -520,7 +493,7 @@ struct Pass {
     var label: UnsafePointer<CChar>? = nil
     var _end_canary: UInt32 = 0
 }
-struct Bindings {
+private struct Bindings {
     var _start_canary: UInt32 = 0
     var vertex_buffers: [Buffer] = Array(repeating: Buffer(), count: 8)
     var vertex_buffer_offsets: [CInt] = Array(repeating: CInt(0), count: 8)
@@ -531,7 +504,7 @@ struct Bindings {
     var storage_buffers: [Buffer] = Array(repeating: Buffer(), count: 8)
     var _end_canary: UInt32 = 0
 }
-struct BufferDesc {
+private struct BufferDesc {
     var _start_canary: UInt32 = 0
     var size: Int = 0
     var type: BufferType = .DEFAULT
@@ -544,10 +517,10 @@ struct BufferDesc {
     var wgpu_buffer: UnsafeRawPointer? = nil
     var _end_canary: UInt32 = 0
 }
-struct ImageData {
+private struct ImageData {
     var subimage: [[Range]] = Array(repeating: Array(repeating: Range(), count: 16), count: 6)
 }
-struct ImageDesc {
+private struct ImageDesc {
     var _start_canary: UInt32 = 0
     var type: ImageType = .DEFAULT
     var render_target: Bool = false
@@ -569,7 +542,7 @@ struct ImageDesc {
     var wgpu_texture_view: UnsafeRawPointer? = nil
     var _end_canary: UInt32 = 0
 }
-struct SamplerDesc {
+private struct SamplerDesc {
     var _start_canary: UInt32 = 0
     var min_filter: Filter = .DEFAULT
     var mag_filter: Filter = .DEFAULT
@@ -589,30 +562,29 @@ struct SamplerDesc {
     var wgpu_sampler: UnsafeRawPointer? = nil
     var _end_canary: UInt32 = 0
 }
-
 @objc
 enum ShaderStage : CUnsignedInt {
     case NONE
     case VERTEX
     case FRAGMENT
 }
-struct ShaderFunction {
+private struct ShaderFunction {
     var source: UnsafePointer<CChar>? = nil
     var bytecode: Range = Range()
     var entry: UnsafePointer<CChar>? = nil
     var d3d11_target: UnsafePointer<CChar>? = nil
 }
-struct ShaderVertexAttr {
+private struct ShaderVertexAttr {
     var glsl_name: UnsafePointer<CChar>? = nil
     var hlsl_sem_name: UnsafePointer<CChar>? = nil
     var hlsl_sem_index: UInt8 = 0
 }
-struct GlslShaderUniform {
+private struct GlslShaderUniform {
     var type: UniformType = .INVALID
     var array_count: UInt16 = 0
     var glsl_name: UnsafePointer<CChar>? = nil
 }
-struct ShaderUniformBlock {
+private struct ShaderUniformBlock {
     var stage: ShaderStage = .NONE
     var size: UInt32 = 0
     var hlsl_register_b_n: UInt8 = 0
@@ -621,7 +593,7 @@ struct ShaderUniformBlock {
     var layout: UniformLayout = .DEFAULT
     var glsl_uniforms: [GlslShaderUniform] = Array(repeating: GlslShaderUniform(), count: 16)
 }
-struct ShaderImage {
+private struct ShaderImage {
     var stage: ShaderStage = .NONE
     var image_type: ImageType = .DEFAULT
     var sample_type: ImageSampleType = .DEFAULT
@@ -630,14 +602,14 @@ struct ShaderImage {
     var msl_texture_n: UInt8 = 0
     var wgsl_group1_binding_n: UInt8 = 0
 }
-struct ShaderSampler {
+private struct ShaderSampler {
     var stage: ShaderStage = .NONE
     var sampler_type: SamplerType = .DEFAULT
     var hlsl_register_s_n: UInt8 = 0
     var msl_sampler_n: UInt8 = 0
     var wgsl_group1_binding_n: UInt8 = 0
 }
-struct ShaderStorageBuffer {
+private struct ShaderStorageBuffer {
     var stage: ShaderStage = .NONE
     var readonly: Bool = false
     var hlsl_register_t_n: UInt8 = 0
@@ -645,13 +617,13 @@ struct ShaderStorageBuffer {
     var wgsl_group1_binding_n: UInt8 = 0
     var glsl_binding_n: UInt8 = 0
 }
-struct ShaderImageSamplerPair {
+private struct ShaderImageSamplerPair {
     var stage: ShaderStage = .NONE
     var image_slot: UInt8 = 0
     var sampler_slot: UInt8 = 0
     var glsl_name: UnsafePointer<CChar>? = nil
 }
-struct ShaderDesc {
+private struct ShaderDesc {
     var _start_canary: UInt32 = 0
     var vertex_func: ShaderFunction = ShaderFunction()
     var fragment_func: ShaderFunction = ShaderFunction()
@@ -664,27 +636,27 @@ struct ShaderDesc {
     var label: UnsafePointer<CChar>? = nil
     var _end_canary: UInt32 = 0
 }
-struct VertexBufferLayoutState {
+private struct VertexBufferLayoutState {
     var stride: CInt = 0
     var step_func: VertexStep = .DEFAULT
     var step_rate: CInt = 0
 }
-struct VertexAttrState {
+private struct VertexAttrState {
     var buffer_index: CInt = 0
     var offset: CInt = 0
     var format: VertexFormat = .INVALID
 }
-struct VertexLayoutState {
+private struct VertexLayoutState {
     var buffers: [VertexBufferLayoutState] = Array(repeating: VertexBufferLayoutState(), count: 8)
     var attrs: [VertexAttrState] = Array(repeating: VertexAttrState(), count: 16)
 }
-struct StencilFaceState {
+private struct StencilFaceState {
     var compare: CompareFunc = .DEFAULT
     var fail_op: StencilOp = .DEFAULT
     var depth_fail_op: StencilOp = .DEFAULT
     var pass_op: StencilOp = .DEFAULT
 }
-struct StencilState {
+private struct StencilState {
     var enabled: Bool = false
     var front: StencilFaceState = StencilFaceState()
     var back: StencilFaceState = StencilFaceState()
@@ -692,7 +664,7 @@ struct StencilState {
     var write_mask: UInt8 = 0
     var ref: UInt8 = 0
 }
-struct DepthState {
+private struct DepthState {
     var pixel_format: PixelFormat = .DEFAULT
     var compare: CompareFunc = .DEFAULT
     var write_enabled: Bool = false
@@ -700,7 +672,7 @@ struct DepthState {
     var bias_slope_scale: Float = 0.0
     var bias_clamp: Float = 0.0
 }
-struct BlendState {
+private struct BlendState {
     var enabled: Bool = false
     var src_factor_rgb: BlendFactor = .DEFAULT
     var dst_factor_rgb: BlendFactor = .DEFAULT
@@ -709,12 +681,12 @@ struct BlendState {
     var dst_factor_alpha: BlendFactor = .DEFAULT
     var op_alpha: BlendOp = .DEFAULT
 }
-struct ColorTargetState {
+private struct ColorTargetState {
     var pixel_format: PixelFormat = .DEFAULT
     var write_mask: ColorMask = .DEFAULT
     var blend: BlendState = BlendState()
 }
-struct PipelineDesc {
+private struct PipelineDesc {
     var _start_canary: UInt32 = 0
     var shader: Shader = Shader()
     var layout: VertexLayoutState = VertexLayoutState()
@@ -732,12 +704,12 @@ struct PipelineDesc {
     var label: UnsafePointer<CChar>? = nil
     var _end_canary: UInt32 = 0
 }
-struct AttachmentDesc {
+private struct AttachmentDesc {
     var image: Image = Image()
     var mip_level: CInt = 0
     var slice: CInt = 0
 }
-struct AttachmentsDesc {
+private struct AttachmentsDesc {
     var _start_canary: UInt32 = 0
     var colors: [AttachmentDesc] = Array(repeating: AttachmentDesc(), count: 4)
     var resolves: [AttachmentDesc] = Array(repeating: AttachmentDesc(), count: 4)
@@ -745,11 +717,11 @@ struct AttachmentsDesc {
     var label: UnsafePointer<CChar>? = nil
     var _end_canary: UInt32 = 0
 }
-struct SlotInfo {
+private struct SlotInfo {
     var state: ResourceState = .INITIAL
     var res_id: UInt32 = 0
 }
-struct BufferInfo {
+private struct BufferInfo {
     var slot: SlotInfo = SlotInfo()
     var update_frame_index: UInt32 = 0
     var append_frame_index: UInt32 = 0
@@ -758,25 +730,25 @@ struct BufferInfo {
     var num_slots: CInt = 0
     var active_slot: CInt = 0
 }
-struct ImageInfo {
+private struct ImageInfo {
     var slot: SlotInfo = SlotInfo()
     var upd_frame_index: UInt32 = 0
     var num_slots: CInt = 0
     var active_slot: CInt = 0
 }
-struct SamplerInfo {
+private struct SamplerInfo {
     var slot: SlotInfo = SlotInfo()
 }
-struct ShaderInfo {
+private struct ShaderInfo {
     var slot: SlotInfo = SlotInfo()
 }
-struct PipelineInfo {
+private struct PipelineInfo {
     var slot: SlotInfo = SlotInfo()
 }
-struct AttachmentsInfo {
+private struct AttachmentsInfo {
     var slot: SlotInfo = SlotInfo()
 }
-struct FrameStatsGl {
+private struct FrameStatsGl {
     var num_bind_buffer: UInt32 = 0
     var num_active_texture: UInt32 = 0
     var num_bind_texture: UInt32 = 0
@@ -789,13 +761,13 @@ struct FrameStatsGl {
     var num_disable_vertex_attrib_array: UInt32 = 0
     var num_uniform: UInt32 = 0
 }
-struct FrameStatsD3d11Pass {
+private struct FrameStatsD3d11Pass {
     var num_om_set_render_targets: UInt32 = 0
     var num_clear_render_target_view: UInt32 = 0
     var num_clear_depth_stencil_view: UInt32 = 0
     var num_resolve_subresource: UInt32 = 0
 }
-struct FrameStatsD3d11Pipeline {
+private struct FrameStatsD3d11Pipeline {
     var num_rs_set_state: UInt32 = 0
     var num_om_set_depth_stencil_state: UInt32 = 0
     var num_om_set_blend_state: UInt32 = 0
@@ -806,7 +778,7 @@ struct FrameStatsD3d11Pipeline {
     var num_ps_set_shader: UInt32 = 0
     var num_ps_set_constant_buffers: UInt32 = 0
 }
-struct FrameStatsD3d11Bindings {
+private struct FrameStatsD3d11Bindings {
     var num_ia_set_vertex_buffers: UInt32 = 0
     var num_ia_set_index_buffer: UInt32 = 0
     var num_vs_set_shader_resources: UInt32 = 0
@@ -814,16 +786,16 @@ struct FrameStatsD3d11Bindings {
     var num_vs_set_samplers: UInt32 = 0
     var num_ps_set_samplers: UInt32 = 0
 }
-struct FrameStatsD3d11Uniforms {
+private struct FrameStatsD3d11Uniforms {
     var num_update_subresource: UInt32 = 0
 }
-struct FrameStatsD3d11Draw {
+private struct FrameStatsD3d11Draw {
     var num_draw_indexed_instanced: UInt32 = 0
     var num_draw_indexed: UInt32 = 0
     var num_draw_instanced: UInt32 = 0
     var num_draw: UInt32 = 0
 }
-struct FrameStatsD3d11 {
+private struct FrameStatsD3d11 {
     var pass: FrameStatsD3d11Pass = FrameStatsD3d11Pass()
     var pipeline: FrameStatsD3d11Pipeline = FrameStatsD3d11Pipeline()
     var bindings: FrameStatsD3d11Bindings = FrameStatsD3d11Bindings()
@@ -832,12 +804,12 @@ struct FrameStatsD3d11 {
     var num_map: UInt32 = 0
     var num_unmap: UInt32 = 0
 }
-struct FrameStatsMetalIdpool {
+private struct FrameStatsMetalIdpool {
     var num_added: UInt32 = 0
     var num_released: UInt32 = 0
     var num_garbage_collected: UInt32 = 0
 }
-struct FrameStatsMetalPipeline {
+private struct FrameStatsMetalPipeline {
     var num_set_blend_color: UInt32 = 0
     var num_set_cull_mode: UInt32 = 0
     var num_set_front_facing_winding: UInt32 = 0
@@ -846,7 +818,7 @@ struct FrameStatsMetalPipeline {
     var num_set_render_pipeline_state: UInt32 = 0
     var num_set_depth_stencil_state: UInt32 = 0
 }
-struct FrameStatsMetalBindings {
+private struct FrameStatsMetalBindings {
     var num_set_vertex_buffer: UInt32 = 0
     var num_set_vertex_texture: UInt32 = 0
     var num_set_vertex_sampler_state: UInt32 = 0
@@ -854,21 +826,21 @@ struct FrameStatsMetalBindings {
     var num_set_fragment_texture: UInt32 = 0
     var num_set_fragment_sampler_state: UInt32 = 0
 }
-struct FrameStatsMetalUniforms {
+private struct FrameStatsMetalUniforms {
     var num_set_vertex_buffer_offset: UInt32 = 0
     var num_set_fragment_buffer_offset: UInt32 = 0
 }
-struct FrameStatsMetal {
+private struct FrameStatsMetal {
     var idpool: FrameStatsMetalIdpool = FrameStatsMetalIdpool()
     var pipeline: FrameStatsMetalPipeline = FrameStatsMetalPipeline()
     var bindings: FrameStatsMetalBindings = FrameStatsMetalBindings()
     var uniforms: FrameStatsMetalUniforms = FrameStatsMetalUniforms()
 }
-struct FrameStatsWgpuUniforms {
+private struct FrameStatsWgpuUniforms {
     var num_set_bindgroup: UInt32 = 0
     var size_write_buffer: UInt32 = 0
 }
-struct FrameStatsWgpuBindings {
+private struct FrameStatsWgpuBindings {
     var num_set_vertex_buffer: UInt32 = 0
     var num_skip_redundant_vertex_buffer: UInt32 = 0
     var num_set_index_buffer: UInt32 = 0
@@ -883,11 +855,11 @@ struct FrameStatsWgpuBindings {
     var num_bindgroup_cache_invalidates: UInt32 = 0
     var num_bindgroup_cache_hash_vs_key_mismatch: UInt32 = 0
 }
-struct FrameStatsWgpu {
+private struct FrameStatsWgpu {
     var uniforms: FrameStatsWgpuUniforms = FrameStatsWgpuUniforms()
     var bindings: FrameStatsWgpuBindings = FrameStatsWgpuBindings()
 }
-struct FrameStats {
+private struct FrameStats {
     var frame_index: UInt32 = 0
     var num_passes: UInt32 = 0
     var num_apply_viewport: UInt32 = 0
@@ -908,7 +880,6 @@ struct FrameStats {
     var metal: FrameStatsMetal = FrameStatsMetal()
     var wgpu: FrameStatsWgpu = FrameStatsWgpu()
 }
-
 @objc
 enum LogItem : CUnsignedInt {
     case OK
@@ -1207,41 +1178,41 @@ enum LogItem : CUnsignedInt {
     case VALIDATE_UPDIMG_ONCE
     case VALIDATION_FAILED
 }
-struct EnvironmentDefaults {
+private struct EnvironmentDefaults {
     var color_format: PixelFormat = .DEFAULT
     var depth_format: PixelFormat = .DEFAULT
     var sample_count: CInt = 0
 }
-struct MetalEnvironment {
+private struct MetalEnvironment {
     var device: UnsafeRawPointer? = nil
 }
-struct D3d11Environment {
+private struct D3d11Environment {
     var device: UnsafeRawPointer? = nil
     var device_context: UnsafeRawPointer? = nil
 }
-struct WgpuEnvironment {
+private struct WgpuEnvironment {
     var device: UnsafeRawPointer? = nil
 }
-struct Environment {
+private struct Environment {
     var defaults: EnvironmentDefaults = EnvironmentDefaults()
     var metal: MetalEnvironment = MetalEnvironment()
     var d3d11: D3d11Environment = D3d11Environment()
     var wgpu: WgpuEnvironment = WgpuEnvironment()
 }
-struct CommitListener {
+private struct CommitListener {
     var fn: (@convention(c) (UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
-struct Allocator {
+private struct Allocator {
     var alloc_fn: (@convention(c) (Int, UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer?)? = nil
     var free_fn: (@convention(c) (UnsafeMutableRawPointer?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
-struct Logger {
+private struct Logger {
     var fn: (@convention(c) (UnsafePointer<CChar>?, UInt32, UInt32, UnsafePointer<CChar>?, UInt32, UnsafePointer<CChar>?, UnsafeMutableRawPointer?) -> Void)? = nil
     var user_data: UnsafeMutableRawPointer? = nil
 }
-struct Desc {
+private struct Desc {
     var _start_canary: UInt32 = 0
     var buffer_pool_size: CInt = 0
     var image_pool_size: CInt = 0
@@ -1264,879 +1235,748 @@ struct Desc {
 }
 @_extern(c, "sg_setup")
 func sg_setup(_: UnsafeRawPointer?)
-
-func setup(_ desc: UnsafePointer<Desc>?) {
+private func setup(_ desc: UnsafePointer<Desc>?) {
     return sg_setup(UnsafePointer(desc))
 }
 @_extern(c, "sg_shutdown")
 func sg_shutdown()
-
-func shutdown() {
+private func shutdown() {
     return sg_shutdown()
 }
 @_extern(c, "sg_isvalid")
 func sg_isvalid() -> Bool
-
-func isvalid() -> Bool {
+private func isvalid() -> Bool {
     return sg_isvalid()
 }
 @_extern(c, "sg_reset_state_cache")
 func sg_reset_state_cache()
-
-func resetStateCache() {
+private func resetStateCache() {
     return sg_reset_state_cache()
 }
 @_extern(c, "sg_push_debug_group")
 func sg_push_debug_group(_: UnsafePointer<CChar>?)
-
-func pushDebugGroup(_ name: UnsafePointer<CChar>?) {
+private func pushDebugGroup(_ name: UnsafePointer<CChar>?) {
     return sg_push_debug_group(name)
 }
 @_extern(c, "sg_pop_debug_group")
 func sg_pop_debug_group()
-
-func popDebugGroup() {
+private func popDebugGroup() {
     return sg_pop_debug_group()
 }
 @_extern(c, "sg_add_commit_listener")
 func sg_add_commit_listener(_: OpaquePointer?) -> Bool
-
-func addCommitListener(_ listener: OpaquePointer?) -> Bool {
+private func addCommitListener(_ listener: OpaquePointer?) -> Bool {
     return sg_add_commit_listener(listener)
 }
 @_extern(c, "sg_remove_commit_listener")
 func sg_remove_commit_listener(_: OpaquePointer?) -> Bool
-
-func removeCommitListener(_ listener: OpaquePointer?) -> Bool {
+private func removeCommitListener(_ listener: OpaquePointer?) -> Bool {
     return sg_remove_commit_listener(listener)
 }
 @_extern(c, "sg_make_buffer")
 func sg_make_buffer(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func makeBuffer(_ desc: UnsafePointer<BufferDesc>?) -> OpaquePointer? {
+private func makeBuffer(_ desc: UnsafePointer<BufferDesc>?) -> OpaquePointer? {
     return sg_make_buffer(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_image")
 func sg_make_image(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func makeImage(_ desc: UnsafePointer<ImageDesc>?) -> OpaquePointer? {
+private func makeImage(_ desc: UnsafePointer<ImageDesc>?) -> OpaquePointer? {
     return sg_make_image(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_sampler")
 func sg_make_sampler(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func makeSampler(_ desc: UnsafePointer<SamplerDesc>?) -> OpaquePointer? {
+private func makeSampler(_ desc: UnsafePointer<SamplerDesc>?) -> OpaquePointer? {
     return sg_make_sampler(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_shader")
 func sg_make_shader(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func makeShader(_ desc: UnsafePointer<ShaderDesc>?) -> OpaquePointer? {
+private func makeShader(_ desc: UnsafePointer<ShaderDesc>?) -> OpaquePointer? {
     return sg_make_shader(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_pipeline")
 func sg_make_pipeline(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func makePipeline(_ desc: UnsafePointer<PipelineDesc>?) -> OpaquePointer? {
+private func makePipeline(_ desc: UnsafePointer<PipelineDesc>?) -> OpaquePointer? {
     return sg_make_pipeline(UnsafePointer(desc))
 }
 @_extern(c, "sg_make_attachments")
 func sg_make_attachments(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func makeAttachments(_ desc: UnsafePointer<AttachmentsDesc>?) -> OpaquePointer? {
+private func makeAttachments(_ desc: UnsafePointer<AttachmentsDesc>?) -> OpaquePointer? {
     return sg_make_attachments(UnsafePointer(desc))
 }
 @_extern(c, "sg_destroy_buffer")
 func sg_destroy_buffer(_: OpaquePointer?)
-
-func destroyBuffer(_ buf: OpaquePointer?) {
+private func destroyBuffer(_ buf: OpaquePointer?) {
     return sg_destroy_buffer(buf)
 }
 @_extern(c, "sg_destroy_image")
 func sg_destroy_image(_: OpaquePointer?)
-
-func destroyImage(_ img: OpaquePointer?) {
+private func destroyImage(_ img: OpaquePointer?) {
     return sg_destroy_image(img)
 }
 @_extern(c, "sg_destroy_sampler")
 func sg_destroy_sampler(_: OpaquePointer?)
-
-func destroySampler(_ smp: OpaquePointer?) {
+private func destroySampler(_ smp: OpaquePointer?) {
     return sg_destroy_sampler(smp)
 }
 @_extern(c, "sg_destroy_shader")
 func sg_destroy_shader(_: OpaquePointer?)
-
-func destroyShader(_ shd: OpaquePointer?) {
+private func destroyShader(_ shd: OpaquePointer?) {
     return sg_destroy_shader(shd)
 }
 @_extern(c, "sg_destroy_pipeline")
 func sg_destroy_pipeline(_: OpaquePointer?)
-
-func destroyPipeline(_ pip: OpaquePointer?) {
+private func destroyPipeline(_ pip: OpaquePointer?) {
     return sg_destroy_pipeline(pip)
 }
 @_extern(c, "sg_destroy_attachments")
 func sg_destroy_attachments(_: OpaquePointer?)
-
-func destroyAttachments(_ atts: OpaquePointer?) {
+private func destroyAttachments(_ atts: OpaquePointer?) {
     return sg_destroy_attachments(atts)
 }
 @_extern(c, "sg_update_buffer")
 func sg_update_buffer(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func updateBuffer(_ buf: OpaquePointer?, _ data: UnsafePointer<Range>?) {
+private func updateBuffer(_ buf: OpaquePointer?, _ data: UnsafePointer<Range>?) {
     return sg_update_buffer(buf, UnsafePointer(data))
 }
 @_extern(c, "sg_update_image")
 func sg_update_image(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func updateImage(_ img: OpaquePointer?, _ data: UnsafePointer<ImageData>?) {
+private func updateImage(_ img: OpaquePointer?, _ data: UnsafePointer<ImageData>?) {
     return sg_update_image(img, UnsafePointer(data))
 }
 @_extern(c, "sg_append_buffer")
 func sg_append_buffer(_: OpaquePointer?, _: UnsafeRawPointer?) -> CInt
-
-func appendBuffer(_ buf: OpaquePointer?, _ data: UnsafePointer<Range>?) -> CInt {
+private func appendBuffer(_ buf: OpaquePointer?, _ data: UnsafePointer<Range>?) -> CInt {
     return sg_append_buffer(buf, UnsafePointer(data))
 }
 @_extern(c, "sg_query_buffer_overflow")
 func sg_query_buffer_overflow(_: OpaquePointer?) -> Bool
-
-func queryBufferOverflow(_ buf: OpaquePointer?) -> Bool {
+private func queryBufferOverflow(_ buf: OpaquePointer?) -> Bool {
     return sg_query_buffer_overflow(buf)
 }
 @_extern(c, "sg_query_buffer_will_overflow")
 func sg_query_buffer_will_overflow(_: OpaquePointer?, _: Int) -> Bool
-
-func queryBufferWillOverflow(_ buf: OpaquePointer?, _ size: Int) -> Bool {
+private func queryBufferWillOverflow(_ buf: OpaquePointer?, _ size: Int) -> Bool {
     return sg_query_buffer_will_overflow(buf, size)
 }
 @_extern(c, "sg_begin_pass")
 func sg_begin_pass(_: UnsafeRawPointer?)
-
-func beginPass(_ pass: UnsafePointer<Pass>?) {
+private func beginPass(_ pass: UnsafePointer<Pass>?) {
     return sg_begin_pass(UnsafePointer(pass))
 }
 @_extern(c, "sg_apply_viewport")
 func sg_apply_viewport(_: CInt, _: CInt, _: CInt, _: CInt, _: Bool)
-
-func applyViewport(_ x: CInt, _ y: CInt, _ width: CInt, _ height: CInt, _ origin_top_left: Bool) {
+private func applyViewport(_ x: CInt, _ y: CInt, _ width: CInt, _ height: CInt, _ origin_top_left: Bool) {
     return sg_apply_viewport(x, y, width, height, origin_top_left)
 }
 @_extern(c, "sg_apply_viewportf")
 func sg_apply_viewportf(_: Float, _: Float, _: Float, _: Float, _: Bool)
-
-func applyViewportf(_ x: Float, _ y: Float, _ width: Float, _ height: Float, _ origin_top_left: Bool) {
+private func applyViewportf(_ x: Float, _ y: Float, _ width: Float, _ height: Float, _ origin_top_left: Bool) {
     return sg_apply_viewportf(x, y, width, height, origin_top_left)
 }
 @_extern(c, "sg_apply_scissor_rect")
 func sg_apply_scissor_rect(_: CInt, _: CInt, _: CInt, _: CInt, _: Bool)
-
-func applyScissorRect(_ x: CInt, _ y: CInt, _ width: CInt, _ height: CInt, _ origin_top_left: Bool) {
+private func applyScissorRect(_ x: CInt, _ y: CInt, _ width: CInt, _ height: CInt, _ origin_top_left: Bool) {
     return sg_apply_scissor_rect(x, y, width, height, origin_top_left)
 }
 @_extern(c, "sg_apply_scissor_rectf")
 func sg_apply_scissor_rectf(_: Float, _: Float, _: Float, _: Float, _: Bool)
-
-func applyScissorRectf(_ x: Float, _ y: Float, _ width: Float, _ height: Float, _ origin_top_left: Bool) {
+private func applyScissorRectf(_ x: Float, _ y: Float, _ width: Float, _ height: Float, _ origin_top_left: Bool) {
     return sg_apply_scissor_rectf(x, y, width, height, origin_top_left)
 }
 @_extern(c, "sg_apply_pipeline")
 func sg_apply_pipeline(_: OpaquePointer?)
-
-func applyPipeline(_ pip: OpaquePointer?) {
+private func applyPipeline(_ pip: OpaquePointer?) {
     return sg_apply_pipeline(pip)
 }
 @_extern(c, "sg_apply_bindings")
 func sg_apply_bindings(_: UnsafeRawPointer?)
-
-func applyBindings(_ bindings: UnsafePointer<Bindings>?) {
+private func applyBindings(_ bindings: UnsafePointer<Bindings>?) {
     return sg_apply_bindings(UnsafePointer(bindings))
 }
 @_extern(c, "sg_apply_uniforms")
 func sg_apply_uniforms(_: CInt, _: UnsafeRawPointer?)
-
-func applyUniforms(_ ub_slot: CInt, _ data: UnsafePointer<Range>?) {
+private func applyUniforms(_ ub_slot: CInt, _ data: UnsafePointer<Range>?) {
     return sg_apply_uniforms(ub_slot, UnsafePointer(data))
 }
 @_extern(c, "sg_draw")
 func sg_draw(_: UInt32, _: UInt32, _: UInt32)
-
-func draw(_ base_element: UInt32, _ num_elements: UInt32, _ num_instances: UInt32) {
+private func draw(_ base_element: UInt32, _ num_elements: UInt32, _ num_instances: UInt32) {
     return sg_draw(base_element, num_elements, num_instances)
 }
 @_extern(c, "sg_end_pass")
 func sg_end_pass()
-
-func endPass() {
+private func endPass() {
     return sg_end_pass()
 }
 @_extern(c, "sg_commit")
 func sg_commit()
-
-func commit() {
+private func commit() {
     return sg_commit()
 }
 @_extern(c, "sg_query_desc")
 func sg_query_desc() -> OpaquePointer?
-
-func queryDesc() -> OpaquePointer? {
+private func queryDesc() -> OpaquePointer? {
     return sg_query_desc()
 }
 @_extern(c, "sg_query_backend")
 func sg_query_backend() -> Backend
-
-func queryBackend() -> Backend {
+private func queryBackend() -> Backend {
     return sg_query_backend()
 }
 @_extern(c, "sg_query_features")
 func sg_query_features() -> OpaquePointer?
-
-func queryFeatures() -> OpaquePointer? {
+private func queryFeatures() -> OpaquePointer? {
     return sg_query_features()
 }
 @_extern(c, "sg_query_limits")
 func sg_query_limits() -> OpaquePointer?
-
-func queryLimits() -> OpaquePointer? {
+private func queryLimits() -> OpaquePointer? {
     return sg_query_limits()
 }
 @_extern(c, "sg_query_pixelformat")
 func sg_query_pixelformat(_: PixelFormat) -> OpaquePointer?
-
-func queryPixelformat(_ fmt: PixelFormat) -> OpaquePointer? {
+private func queryPixelformat(_ fmt: PixelFormat) -> OpaquePointer? {
     return sg_query_pixelformat(fmt)
 }
 @_extern(c, "sg_query_row_pitch")
 func sg_query_row_pitch(_: PixelFormat, _: CInt, _: CInt) -> CInt
-
-func queryRowPitch(_ fmt: PixelFormat, _ width: CInt, _ row_align_bytes: CInt) -> CInt {
+private func queryRowPitch(_ fmt: PixelFormat, _ width: CInt, _ row_align_bytes: CInt) -> CInt {
     return sg_query_row_pitch(fmt, width, row_align_bytes)
 }
 @_extern(c, "sg_query_surface_pitch")
 func sg_query_surface_pitch(_: PixelFormat, _: CInt, _: CInt, _: CInt) -> CInt
-
-func querySurfacePitch(_ fmt: PixelFormat, _ width: CInt, _ height: CInt, _ row_align_bytes: CInt) -> CInt {
+private func querySurfacePitch(_ fmt: PixelFormat, _ width: CInt, _ height: CInt, _ row_align_bytes: CInt) -> CInt {
     return sg_query_surface_pitch(fmt, width, height, row_align_bytes)
 }
 @_extern(c, "sg_query_buffer_state")
 func sg_query_buffer_state(_: OpaquePointer?) -> ResourceState
-
-func queryBufferState(_ buf: OpaquePointer?) -> ResourceState {
+private func queryBufferState(_ buf: OpaquePointer?) -> ResourceState {
     return sg_query_buffer_state(buf)
 }
 @_extern(c, "sg_query_image_state")
 func sg_query_image_state(_: OpaquePointer?) -> ResourceState
-
-func queryImageState(_ img: OpaquePointer?) -> ResourceState {
+private func queryImageState(_ img: OpaquePointer?) -> ResourceState {
     return sg_query_image_state(img)
 }
 @_extern(c, "sg_query_sampler_state")
 func sg_query_sampler_state(_: OpaquePointer?) -> ResourceState
-
-func querySamplerState(_ smp: OpaquePointer?) -> ResourceState {
+private func querySamplerState(_ smp: OpaquePointer?) -> ResourceState {
     return sg_query_sampler_state(smp)
 }
 @_extern(c, "sg_query_shader_state")
 func sg_query_shader_state(_: OpaquePointer?) -> ResourceState
-
-func queryShaderState(_ shd: OpaquePointer?) -> ResourceState {
+private func queryShaderState(_ shd: OpaquePointer?) -> ResourceState {
     return sg_query_shader_state(shd)
 }
 @_extern(c, "sg_query_pipeline_state")
 func sg_query_pipeline_state(_: OpaquePointer?) -> ResourceState
-
-func queryPipelineState(_ pip: OpaquePointer?) -> ResourceState {
+private func queryPipelineState(_ pip: OpaquePointer?) -> ResourceState {
     return sg_query_pipeline_state(pip)
 }
 @_extern(c, "sg_query_attachments_state")
 func sg_query_attachments_state(_: OpaquePointer?) -> ResourceState
-
-func queryAttachmentsState(_ atts: OpaquePointer?) -> ResourceState {
+private func queryAttachmentsState(_ atts: OpaquePointer?) -> ResourceState {
     return sg_query_attachments_state(atts)
 }
 @_extern(c, "sg_query_buffer_info")
 func sg_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
-
-func queryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
+private func queryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_query_buffer_info(buf)
 }
 @_extern(c, "sg_query_image_info")
 func sg_query_image_info(_: OpaquePointer?) -> OpaquePointer?
-
-func queryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
+private func queryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_query_image_info(img)
 }
 @_extern(c, "sg_query_sampler_info")
 func sg_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
-
-func querySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
+private func querySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_query_sampler_info(smp)
 }
 @_extern(c, "sg_query_shader_info")
 func sg_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
-
-func queryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
+private func queryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_query_shader_info(shd)
 }
 @_extern(c, "sg_query_pipeline_info")
 func sg_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
-
-func queryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
+private func queryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_query_pipeline_info(pip)
 }
 @_extern(c, "sg_query_attachments_info")
 func sg_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
-
-func queryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
+private func queryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_query_attachments_info(atts)
 }
 @_extern(c, "sg_query_buffer_desc")
 func sg_query_buffer_desc(_: OpaquePointer?) -> OpaquePointer?
-
-func queryBufferDesc(_ buf: OpaquePointer?) -> OpaquePointer? {
+private func queryBufferDesc(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_query_buffer_desc(buf)
 }
 @_extern(c, "sg_query_image_desc")
 func sg_query_image_desc(_: OpaquePointer?) -> OpaquePointer?
-
-func queryImageDesc(_ img: OpaquePointer?) -> OpaquePointer? {
+private func queryImageDesc(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_query_image_desc(img)
 }
 @_extern(c, "sg_query_sampler_desc")
 func sg_query_sampler_desc(_: OpaquePointer?) -> OpaquePointer?
-
-func querySamplerDesc(_ smp: OpaquePointer?) -> OpaquePointer? {
+private func querySamplerDesc(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_query_sampler_desc(smp)
 }
 @_extern(c, "sg_query_shader_desc")
 func sg_query_shader_desc(_: OpaquePointer?) -> OpaquePointer?
-
-func queryShaderDesc(_ shd: OpaquePointer?) -> OpaquePointer? {
+private func queryShaderDesc(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_query_shader_desc(shd)
 }
 @_extern(c, "sg_query_pipeline_desc")
 func sg_query_pipeline_desc(_: OpaquePointer?) -> OpaquePointer?
-
-func queryPipelineDesc(_ pip: OpaquePointer?) -> OpaquePointer? {
+private func queryPipelineDesc(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_query_pipeline_desc(pip)
 }
 @_extern(c, "sg_query_attachments_desc")
 func sg_query_attachments_desc(_: OpaquePointer?) -> OpaquePointer?
-
-func queryAttachmentsDesc(_ atts: OpaquePointer?) -> OpaquePointer? {
+private func queryAttachmentsDesc(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_query_attachments_desc(atts)
 }
 @_extern(c, "sg_query_buffer_defaults")
 func sg_query_buffer_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func queryBufferDefaults(_ desc: UnsafePointer<BufferDesc>?) -> OpaquePointer? {
+private func queryBufferDefaults(_ desc: UnsafePointer<BufferDesc>?) -> OpaquePointer? {
     return sg_query_buffer_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_image_defaults")
 func sg_query_image_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func queryImageDefaults(_ desc: UnsafePointer<ImageDesc>?) -> OpaquePointer? {
+private func queryImageDefaults(_ desc: UnsafePointer<ImageDesc>?) -> OpaquePointer? {
     return sg_query_image_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_sampler_defaults")
 func sg_query_sampler_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func querySamplerDefaults(_ desc: UnsafePointer<SamplerDesc>?) -> OpaquePointer? {
+private func querySamplerDefaults(_ desc: UnsafePointer<SamplerDesc>?) -> OpaquePointer? {
     return sg_query_sampler_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_shader_defaults")
 func sg_query_shader_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func queryShaderDefaults(_ desc: UnsafePointer<ShaderDesc>?) -> OpaquePointer? {
+private func queryShaderDefaults(_ desc: UnsafePointer<ShaderDesc>?) -> OpaquePointer? {
     return sg_query_shader_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_pipeline_defaults")
 func sg_query_pipeline_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func queryPipelineDefaults(_ desc: UnsafePointer<PipelineDesc>?) -> OpaquePointer? {
+private func queryPipelineDefaults(_ desc: UnsafePointer<PipelineDesc>?) -> OpaquePointer? {
     return sg_query_pipeline_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_query_attachments_defaults")
 func sg_query_attachments_defaults(_: UnsafeRawPointer?) -> OpaquePointer?
-
-func queryAttachmentsDefaults(_ desc: UnsafePointer<AttachmentsDesc>?) -> OpaquePointer? {
+private func queryAttachmentsDefaults(_ desc: UnsafePointer<AttachmentsDesc>?) -> OpaquePointer? {
     return sg_query_attachments_defaults(UnsafePointer(desc))
 }
 @_extern(c, "sg_alloc_buffer")
 func sg_alloc_buffer() -> OpaquePointer?
-
-func allocBuffer() -> OpaquePointer? {
+private func allocBuffer() -> OpaquePointer? {
     return sg_alloc_buffer()
 }
 @_extern(c, "sg_alloc_image")
 func sg_alloc_image() -> OpaquePointer?
-
-func allocImage() -> OpaquePointer? {
+private func allocImage() -> OpaquePointer? {
     return sg_alloc_image()
 }
 @_extern(c, "sg_alloc_sampler")
 func sg_alloc_sampler() -> OpaquePointer?
-
-func allocSampler() -> OpaquePointer? {
+private func allocSampler() -> OpaquePointer? {
     return sg_alloc_sampler()
 }
 @_extern(c, "sg_alloc_shader")
 func sg_alloc_shader() -> OpaquePointer?
-
-func allocShader() -> OpaquePointer? {
+private func allocShader() -> OpaquePointer? {
     return sg_alloc_shader()
 }
 @_extern(c, "sg_alloc_pipeline")
 func sg_alloc_pipeline() -> OpaquePointer?
-
-func allocPipeline() -> OpaquePointer? {
+private func allocPipeline() -> OpaquePointer? {
     return sg_alloc_pipeline()
 }
 @_extern(c, "sg_alloc_attachments")
 func sg_alloc_attachments() -> OpaquePointer?
-
-func allocAttachments() -> OpaquePointer? {
+private func allocAttachments() -> OpaquePointer? {
     return sg_alloc_attachments()
 }
 @_extern(c, "sg_dealloc_buffer")
 func sg_dealloc_buffer(_: OpaquePointer?)
-
-func deallocBuffer(_ buf: OpaquePointer?) {
+private func deallocBuffer(_ buf: OpaquePointer?) {
     return sg_dealloc_buffer(buf)
 }
 @_extern(c, "sg_dealloc_image")
 func sg_dealloc_image(_: OpaquePointer?)
-
-func deallocImage(_ img: OpaquePointer?) {
+private func deallocImage(_ img: OpaquePointer?) {
     return sg_dealloc_image(img)
 }
 @_extern(c, "sg_dealloc_sampler")
 func sg_dealloc_sampler(_: OpaquePointer?)
-
-func deallocSampler(_ smp: OpaquePointer?) {
+private func deallocSampler(_ smp: OpaquePointer?) {
     return sg_dealloc_sampler(smp)
 }
 @_extern(c, "sg_dealloc_shader")
 func sg_dealloc_shader(_: OpaquePointer?)
-
-func deallocShader(_ shd: OpaquePointer?) {
+private func deallocShader(_ shd: OpaquePointer?) {
     return sg_dealloc_shader(shd)
 }
 @_extern(c, "sg_dealloc_pipeline")
 func sg_dealloc_pipeline(_: OpaquePointer?)
-
-func deallocPipeline(_ pip: OpaquePointer?) {
+private func deallocPipeline(_ pip: OpaquePointer?) {
     return sg_dealloc_pipeline(pip)
 }
 @_extern(c, "sg_dealloc_attachments")
 func sg_dealloc_attachments(_: OpaquePointer?)
-
-func deallocAttachments(_ attachments: OpaquePointer?) {
+private func deallocAttachments(_ attachments: OpaquePointer?) {
     return sg_dealloc_attachments(attachments)
 }
 @_extern(c, "sg_init_buffer")
 func sg_init_buffer(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func initBuffer(_ buf: OpaquePointer?, _ desc: UnsafePointer<BufferDesc>?) {
+private func initBuffer(_ buf: OpaquePointer?, _ desc: UnsafePointer<BufferDesc>?) {
     return sg_init_buffer(buf, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_image")
 func sg_init_image(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func initImage(_ img: OpaquePointer?, _ desc: UnsafePointer<ImageDesc>?) {
+private func initImage(_ img: OpaquePointer?, _ desc: UnsafePointer<ImageDesc>?) {
     return sg_init_image(img, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_sampler")
 func sg_init_sampler(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func initSampler(_ smg: OpaquePointer?, _ desc: UnsafePointer<SamplerDesc>?) {
+private func initSampler(_ smg: OpaquePointer?, _ desc: UnsafePointer<SamplerDesc>?) {
     return sg_init_sampler(smg, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_shader")
 func sg_init_shader(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func initShader(_ shd: OpaquePointer?, _ desc: UnsafePointer<ShaderDesc>?) {
+private func initShader(_ shd: OpaquePointer?, _ desc: UnsafePointer<ShaderDesc>?) {
     return sg_init_shader(shd, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_pipeline")
 func sg_init_pipeline(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func initPipeline(_ pip: OpaquePointer?, _ desc: UnsafePointer<PipelineDesc>?) {
+private func initPipeline(_ pip: OpaquePointer?, _ desc: UnsafePointer<PipelineDesc>?) {
     return sg_init_pipeline(pip, UnsafePointer(desc))
 }
 @_extern(c, "sg_init_attachments")
 func sg_init_attachments(_: OpaquePointer?, _: UnsafeRawPointer?)
-
-func initAttachments(_ attachments: OpaquePointer?, _ desc: UnsafePointer<AttachmentsDesc>?) {
+private func initAttachments(_ attachments: OpaquePointer?, _ desc: UnsafePointer<AttachmentsDesc>?) {
     return sg_init_attachments(attachments, UnsafePointer(desc))
 }
 @_extern(c, "sg_uninit_buffer")
 func sg_uninit_buffer(_: OpaquePointer?)
-
-func uninitBuffer(_ buf: OpaquePointer?) {
+private func uninitBuffer(_ buf: OpaquePointer?) {
     return sg_uninit_buffer(buf)
 }
 @_extern(c, "sg_uninit_image")
 func sg_uninit_image(_: OpaquePointer?)
-
-func uninitImage(_ img: OpaquePointer?) {
+private func uninitImage(_ img: OpaquePointer?) {
     return sg_uninit_image(img)
 }
 @_extern(c, "sg_uninit_sampler")
 func sg_uninit_sampler(_: OpaquePointer?)
-
-func uninitSampler(_ smp: OpaquePointer?) {
+private func uninitSampler(_ smp: OpaquePointer?) {
     return sg_uninit_sampler(smp)
 }
 @_extern(c, "sg_uninit_shader")
 func sg_uninit_shader(_: OpaquePointer?)
-
-func uninitShader(_ shd: OpaquePointer?) {
+private func uninitShader(_ shd: OpaquePointer?) {
     return sg_uninit_shader(shd)
 }
 @_extern(c, "sg_uninit_pipeline")
 func sg_uninit_pipeline(_: OpaquePointer?)
-
-func uninitPipeline(_ pip: OpaquePointer?) {
+private func uninitPipeline(_ pip: OpaquePointer?) {
     return sg_uninit_pipeline(pip)
 }
 @_extern(c, "sg_uninit_attachments")
 func sg_uninit_attachments(_: OpaquePointer?)
-
-func uninitAttachments(_ atts: OpaquePointer?) {
+private func uninitAttachments(_ atts: OpaquePointer?) {
     return sg_uninit_attachments(atts)
 }
 @_extern(c, "sg_fail_buffer")
 func sg_fail_buffer(_: OpaquePointer?)
-
-func failBuffer(_ buf: OpaquePointer?) {
+private func failBuffer(_ buf: OpaquePointer?) {
     return sg_fail_buffer(buf)
 }
 @_extern(c, "sg_fail_image")
 func sg_fail_image(_: OpaquePointer?)
-
-func failImage(_ img: OpaquePointer?) {
+private func failImage(_ img: OpaquePointer?) {
     return sg_fail_image(img)
 }
 @_extern(c, "sg_fail_sampler")
 func sg_fail_sampler(_: OpaquePointer?)
-
-func failSampler(_ smp: OpaquePointer?) {
+private func failSampler(_ smp: OpaquePointer?) {
     return sg_fail_sampler(smp)
 }
 @_extern(c, "sg_fail_shader")
 func sg_fail_shader(_: OpaquePointer?)
-
-func failShader(_ shd: OpaquePointer?) {
+private func failShader(_ shd: OpaquePointer?) {
     return sg_fail_shader(shd)
 }
 @_extern(c, "sg_fail_pipeline")
 func sg_fail_pipeline(_: OpaquePointer?)
-
-func failPipeline(_ pip: OpaquePointer?) {
+private func failPipeline(_ pip: OpaquePointer?) {
     return sg_fail_pipeline(pip)
 }
 @_extern(c, "sg_fail_attachments")
 func sg_fail_attachments(_: OpaquePointer?)
-
-func failAttachments(_ atts: OpaquePointer?) {
+private func failAttachments(_ atts: OpaquePointer?) {
     return sg_fail_attachments(atts)
 }
 @_extern(c, "sg_enable_frame_stats")
 func sg_enable_frame_stats()
-
-func enableFrameStats() {
+private func enableFrameStats() {
     return sg_enable_frame_stats()
 }
 @_extern(c, "sg_disable_frame_stats")
 func sg_disable_frame_stats()
-
-func disableFrameStats() {
+private func disableFrameStats() {
     return sg_disable_frame_stats()
 }
 @_extern(c, "sg_frame_stats_enabled")
 func sg_frame_stats_enabled() -> Bool
-
-func frameStatsEnabled() -> Bool {
+private func frameStatsEnabled() -> Bool {
     return sg_frame_stats_enabled()
 }
 @_extern(c, "sg_query_frame_stats")
 func sg_query_frame_stats() -> OpaquePointer?
-
-func queryFrameStats() -> OpaquePointer? {
+private func queryFrameStats() -> OpaquePointer? {
     return sg_query_frame_stats()
 }
-struct D3d11BufferInfo {
+private struct D3d11BufferInfo {
     var buf: UnsafeRawPointer? = nil
 }
-struct D3d11ImageInfo {
+private struct D3d11ImageInfo {
     var tex2d: UnsafeRawPointer? = nil
     var tex3d: UnsafeRawPointer? = nil
     var res: UnsafeRawPointer? = nil
     var srv: UnsafeRawPointer? = nil
 }
-struct D3d11SamplerInfo {
+private struct D3d11SamplerInfo {
     var smp: UnsafeRawPointer? = nil
 }
-struct D3d11ShaderInfo {
+private struct D3d11ShaderInfo {
     var cbufs: [UnsafeRawPointer?] = Array(repeating: nil, count: 8)
     var vs: UnsafeRawPointer? = nil
     var fs: UnsafeRawPointer? = nil
 }
-struct D3d11PipelineInfo {
+private struct D3d11PipelineInfo {
     var il: UnsafeRawPointer? = nil
     var rs: UnsafeRawPointer? = nil
     var dss: UnsafeRawPointer? = nil
     var bs: UnsafeRawPointer? = nil
 }
-struct D3d11AttachmentsInfo {
+private struct D3d11AttachmentsInfo {
     var color_rtv: [UnsafeRawPointer?] = Array(repeating: nil, count: 4)
     var resolve_rtv: [UnsafeRawPointer?] = Array(repeating: nil, count: 4)
     var dsv: UnsafeRawPointer? = nil
 }
-struct MtlBufferInfo {
+private struct MtlBufferInfo {
     var buf: [UnsafeRawPointer?] = Array(repeating: nil, count: 2)
     var active_slot: CInt = 0
 }
-struct MtlImageInfo {
+private struct MtlImageInfo {
     var tex: [UnsafeRawPointer?] = Array(repeating: nil, count: 2)
     var active_slot: CInt = 0
 }
-struct MtlSamplerInfo {
+private struct MtlSamplerInfo {
     var smp: UnsafeRawPointer? = nil
 }
-struct MtlShaderInfo {
+private struct MtlShaderInfo {
     var vertex_lib: UnsafeRawPointer? = nil
     var fragment_lib: UnsafeRawPointer? = nil
     var vertex_func: UnsafeRawPointer? = nil
     var fragment_func: UnsafeRawPointer? = nil
 }
-struct MtlPipelineInfo {
+private struct MtlPipelineInfo {
     var rps: UnsafeRawPointer? = nil
     var dss: UnsafeRawPointer? = nil
 }
-struct WgpuBufferInfo {
+private struct WgpuBufferInfo {
     var buf: UnsafeRawPointer? = nil
 }
-struct WgpuImageInfo {
+private struct WgpuImageInfo {
     var tex: UnsafeRawPointer? = nil
     var view: UnsafeRawPointer? = nil
 }
-struct WgpuSamplerInfo {
+private struct WgpuSamplerInfo {
     var smp: UnsafeRawPointer? = nil
 }
-struct WgpuShaderInfo {
+private struct WgpuShaderInfo {
     var vs_mod: UnsafeRawPointer? = nil
     var fs_mod: UnsafeRawPointer? = nil
     var bgl: UnsafeRawPointer? = nil
 }
-struct WgpuPipelineInfo {
+private struct WgpuPipelineInfo {
     var pip: UnsafeRawPointer? = nil
 }
-struct WgpuAttachmentsInfo {
+private struct WgpuAttachmentsInfo {
     var color_view: [UnsafeRawPointer?] = Array(repeating: nil, count: 4)
     var resolve_view: [UnsafeRawPointer?] = Array(repeating: nil, count: 4)
     var ds_view: UnsafeRawPointer? = nil
 }
-struct GlBufferInfo {
+private struct GlBufferInfo {
     var buf: [UInt32] = Array(repeating: UInt32(0), count: 2)
     var active_slot: CInt = 0
 }
-struct GlImageInfo {
+private struct GlImageInfo {
     var tex: [UInt32] = Array(repeating: UInt32(0), count: 2)
     var tex_target: UInt32 = 0
     var msaa_render_buffer: UInt32 = 0
     var active_slot: CInt = 0
 }
-struct GlSamplerInfo {
+private struct GlSamplerInfo {
     var smp: UInt32 = 0
 }
-struct GlShaderInfo {
+private struct GlShaderInfo {
     var prog: UInt32 = 0
 }
-struct GlAttachmentsInfo {
+private struct GlAttachmentsInfo {
     var framebuffer: UInt32 = 0
     var msaa_resolve_framebuffer: [UInt32] = Array(repeating: UInt32(0), count: 4)
 }
 @_extern(c, "sg_d3d11_device")
 func sg_d3d11_device() -> UnsafeRawPointer?
-
-func d3d11Device() -> UnsafeRawPointer? {
+private func d3d11Device() -> UnsafeRawPointer? {
     return sg_d3d11_device()
 }
 @_extern(c, "sg_d3d11_device_context")
 func sg_d3d11_device_context() -> UnsafeRawPointer?
-
-func d3d11DeviceContext() -> UnsafeRawPointer? {
+private func d3d11DeviceContext() -> UnsafeRawPointer? {
     return sg_d3d11_device_context()
 }
 @_extern(c, "sg_d3d11_query_buffer_info")
 func sg_d3d11_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
-
-func d3d11QueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
+private func d3d11QueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_buffer_info(buf)
 }
 @_extern(c, "sg_d3d11_query_image_info")
 func sg_d3d11_query_image_info(_: OpaquePointer?) -> OpaquePointer?
-
-func d3d11QueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
+private func d3d11QueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_image_info(img)
 }
 @_extern(c, "sg_d3d11_query_sampler_info")
 func sg_d3d11_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
-
-func d3d11QuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
+private func d3d11QuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_sampler_info(smp)
 }
 @_extern(c, "sg_d3d11_query_shader_info")
 func sg_d3d11_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
-
-func d3d11QueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
+private func d3d11QueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_shader_info(shd)
 }
 @_extern(c, "sg_d3d11_query_pipeline_info")
 func sg_d3d11_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
-
-func d3d11QueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
+private func d3d11QueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_pipeline_info(pip)
 }
 @_extern(c, "sg_d3d11_query_attachments_info")
 func sg_d3d11_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
-
-func d3d11QueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
+private func d3d11QueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_d3d11_query_attachments_info(atts)
 }
 @_extern(c, "sg_mtl_device")
 func sg_mtl_device() -> UnsafeRawPointer?
-
-func mtlDevice() -> UnsafeRawPointer? {
+private func mtlDevice() -> UnsafeRawPointer? {
     return sg_mtl_device()
 }
 @_extern(c, "sg_mtl_render_command_encoder")
 func sg_mtl_render_command_encoder() -> UnsafeRawPointer?
-
-func mtlRenderCommandEncoder() -> UnsafeRawPointer? {
+private func mtlRenderCommandEncoder() -> UnsafeRawPointer? {
     return sg_mtl_render_command_encoder()
 }
 @_extern(c, "sg_mtl_query_buffer_info")
 func sg_mtl_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
-
-func mtlQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
+private func mtlQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_buffer_info(buf)
 }
 @_extern(c, "sg_mtl_query_image_info")
 func sg_mtl_query_image_info(_: OpaquePointer?) -> OpaquePointer?
-
-func mtlQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
+private func mtlQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_image_info(img)
 }
 @_extern(c, "sg_mtl_query_sampler_info")
 func sg_mtl_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
-
-func mtlQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
+private func mtlQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_sampler_info(smp)
 }
 @_extern(c, "sg_mtl_query_shader_info")
 func sg_mtl_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
-
-func mtlQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
+private func mtlQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_shader_info(shd)
 }
 @_extern(c, "sg_mtl_query_pipeline_info")
 func sg_mtl_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
-
-func mtlQueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
+private func mtlQueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_mtl_query_pipeline_info(pip)
 }
 @_extern(c, "sg_wgpu_device")
 func sg_wgpu_device() -> UnsafeRawPointer?
-
-func wgpuDevice() -> UnsafeRawPointer? {
+private func wgpuDevice() -> UnsafeRawPointer? {
     return sg_wgpu_device()
 }
 @_extern(c, "sg_wgpu_queue")
 func sg_wgpu_queue() -> UnsafeRawPointer?
-
-func wgpuQueue() -> UnsafeRawPointer? {
+private func wgpuQueue() -> UnsafeRawPointer? {
     return sg_wgpu_queue()
 }
 @_extern(c, "sg_wgpu_command_encoder")
 func sg_wgpu_command_encoder() -> UnsafeRawPointer?
-
-func wgpuCommandEncoder() -> UnsafeRawPointer? {
+private func wgpuCommandEncoder() -> UnsafeRawPointer? {
     return sg_wgpu_command_encoder()
 }
 @_extern(c, "sg_wgpu_render_pass_encoder")
 func sg_wgpu_render_pass_encoder() -> UnsafeRawPointer?
-
-func wgpuRenderPassEncoder() -> UnsafeRawPointer? {
+private func wgpuRenderPassEncoder() -> UnsafeRawPointer? {
     return sg_wgpu_render_pass_encoder()
 }
 @_extern(c, "sg_wgpu_query_buffer_info")
 func sg_wgpu_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
-
-func wgpuQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
+private func wgpuQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_buffer_info(buf)
 }
 @_extern(c, "sg_wgpu_query_image_info")
 func sg_wgpu_query_image_info(_: OpaquePointer?) -> OpaquePointer?
-
-func wgpuQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
+private func wgpuQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_image_info(img)
 }
 @_extern(c, "sg_wgpu_query_sampler_info")
 func sg_wgpu_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
-
-func wgpuQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
+private func wgpuQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_sampler_info(smp)
 }
 @_extern(c, "sg_wgpu_query_shader_info")
 func sg_wgpu_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
-
-func wgpuQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
+private func wgpuQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_shader_info(shd)
 }
 @_extern(c, "sg_wgpu_query_pipeline_info")
 func sg_wgpu_query_pipeline_info(_: OpaquePointer?) -> OpaquePointer?
-
-func wgpuQueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
+private func wgpuQueryPipelineInfo(_ pip: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_pipeline_info(pip)
 }
 @_extern(c, "sg_wgpu_query_attachments_info")
 func sg_wgpu_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
-
-func wgpuQueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
+private func wgpuQueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_wgpu_query_attachments_info(atts)
 }
 @_extern(c, "sg_gl_query_buffer_info")
 func sg_gl_query_buffer_info(_: OpaquePointer?) -> OpaquePointer?
-
-func glQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
+private func glQueryBufferInfo(_ buf: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_buffer_info(buf)
 }
 @_extern(c, "sg_gl_query_image_info")
 func sg_gl_query_image_info(_: OpaquePointer?) -> OpaquePointer?
-
-func glQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
+private func glQueryImageInfo(_ img: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_image_info(img)
 }
 @_extern(c, "sg_gl_query_sampler_info")
 func sg_gl_query_sampler_info(_: OpaquePointer?) -> OpaquePointer?
-
-func glQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
+private func glQuerySamplerInfo(_ smp: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_sampler_info(smp)
 }
 @_extern(c, "sg_gl_query_shader_info")
 func sg_gl_query_shader_info(_: OpaquePointer?) -> OpaquePointer?
-
-func glQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
+private func glQueryShaderInfo(_ shd: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_shader_info(shd)
 }
 @_extern(c, "sg_gl_query_attachments_info")
 func sg_gl_query_attachments_info(_: OpaquePointer?) -> OpaquePointer?
-
-func glQueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
+private func glQueryAttachmentsInfo(_ atts: OpaquePointer?) -> OpaquePointer? {
     return sg_gl_query_attachments_info(atts)
 }

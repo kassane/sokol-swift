@@ -1,3 +1,5 @@
+import SokolC
+
 var passAction = PassAction()
 
 func initialize() {

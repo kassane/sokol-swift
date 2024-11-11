@@ -25,12 +25,12 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 
 file(GLOB SOKOL_C_SOURCES
-    "${CMAKE_SOURCE_DIR}/Sources/sokol/c/*.c"
+    "${CMAKE_SOURCE_DIR}/Sources/Sokol/c/*.c"
 )
 # Define sokol library
 add_library(sokol STATIC)
 target_sources(sokol PRIVATE ${SOKOL_C_SOURCES})
-target_include_directories(sokol PUBLIC ${CMAKE_SOURCE_DIR}/Sources/sokol/c)
+target_include_directories(sokol PUBLIC ${CMAKE_SOURCE_DIR}/Sources/Sokol/c)
 target_compile_definitions(sokol PUBLIC -DIMPL)
 
 # Platform specific libraries
@@ -67,20 +67,21 @@ endif()
 
 # Set Swift compiler flags
 set(CMAKE_Swift_FLAGS "${CMAKE_Swift_FLAGS} -enable-experimental-feature Extern -Xfrontend -enable-single-module-llvm-emission")
-# set(CMAKE_Swift_FLAGS "${CMAKE_Swift_FLAGS} -import-bridging-header ${CMAKE_SOURCE_DIR}/Sources/sokol/c/sokol.h")
+# set(CMAKE_Swift_FLAGS "${CMAKE_Swift_FLAGS} -import-bridging-header ${CMAKE_SOURCE_DIR}/Sources/Sokol/c/sokol.h")
+set(CMAKE_Swift_FLAGS "${CMAKE_Swift_FLAGS} -I ${CMAKE_SOURCE_DIR}/Sources/Sokol -L ${CMAKE_SOURCE_DIR}/Sources/Sokol/c")
 
 # Build  Swift modules (each Swift module is a static library) disambiguously named in the module
 file(GLOB SWIFT_SOKOL_SOURCES
-    "${CMAKE_SOURCE_DIR}/Sources/sokol/*.swift"
+    "${CMAKE_SOURCE_DIR}/Sources/Sokol/*.swiftinterface"
 )
-foreach(SOKOL_SOURCE ${SWIFT_SOKOL_SOURCES})
-    get_filename_component(MODULE_NAME ${SOKOL_SOURCE} NAME_WE)
-    add_library(${MODULE_NAME} STATIC)
-    set_target_properties(${MODULE_NAME} PROPERTIES
-        SWIFT_FLAGS "${CMAKE_Swift_FLAGS} -Xfrontend -module-name=${MODULE_NAME}"
-    )
-    target_sources(${MODULE_NAME} PRIVATE ${SOKOL_SOURCE})
-endforeach()
+# foreach(SOKOL_SOURCE ${SWIFT_SOKOL_SOURCES})
+#     get_filename_component(MODULE_NAME ${SOKOL_SOURCE} NAME_WE)
+#     add_library(${MODULE_NAME} STATIC)
+#     set_target_properties(${MODULE_NAME} PROPERTIES
+#         SWIFT_FLAGS "${CMAKE_Swift_FLAGS} -Xfrontend -module-name=${MODULE_NAME}"
+#     )
+#     target_sources(${MODULE_NAME} PRIVATE ${SOKOL_SOURCE})
+# endforeach()
 
 
 file(GLOB SWIFT_SOURCES
@@ -90,6 +91,6 @@ foreach(EXAMPLE_SOURCE ${SWIFT_SOURCES})
     get_filename_component(EXAMPLE_NAME ${EXAMPLE_SOURCE} NAME_WE)
     add_executable(${EXAMPLE_NAME})
     target_sources(${EXAMPLE_NAME} PRIVATE ${EXAMPLE_SOURCE}) # ${SWIFT_SOKOL_SOURCES})
-    target_include_directories(${EXAMPLE_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Sources/sokol/c)
+    target_include_directories(${EXAMPLE_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Sources/Sokol/c)
     target_link_libraries(${EXAMPLE_NAME} PRIVATE sokol ${MODULE_NAME})
 endforeach()

@@ -1,0 +1,4 @@
+module SokolC {
+    header "sokol.h"
+    export *
+}
