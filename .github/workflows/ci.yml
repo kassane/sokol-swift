@@ -1,0 +1,30 @@
+name: swift-ci
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: latest
+          ninjaVersion: latest
+      - uses: compnerd/gha-setup-swift@main
+        with:
+          branch: development
+          tag: DEVELOPMENT-SNAPSHOT-2024-09-06-a # swift 6.x snapshot
+      - name: prepare-linux
+        if: runner.os == 'Linux'
+        run: |
+            sudo apt-get update
+            sudo apt-get install libglu1-mesa-dev mesa-common-dev xorg-dev libasound-dev
+      - name: CMake Configure
+        run: cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Debug
+      - name: CMake Build
+        run: cmake --build build --parallel
